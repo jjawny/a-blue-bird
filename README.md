@@ -24,5 +24,6 @@ Where I rapidly practice patterns w high value, reverse engineer and implement s
 - UI: Tailwind, MUI
 - Azure: x, x, x
 - X: x, x, x
+- React: Compiler?
 
 \- Johnny
