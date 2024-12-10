@@ -1,8 +1,13 @@
 # A BLUE BIRD <img src="public/readme/bird.png" alt="a fat blue bird doom-scrolling some online content" style="height:30px;">
 
+## QUICK START
+
+- Client: `npm run dev`
+- Server: `dotnet run`
+
 ## TLDR
 
-Where I rapidly practice patterns w high value, reverse engineer and implement solutions used in large-scale systems, and sharpen my mental models.
+Where I rapidly practice patterns w high value, reverse engineer and implement solutions used in large-scale systems, and sharpen my mental models. Something something about maximising gains, minimising costs...
 
 ## CLIENT <img src="public/readme/react-logo.png" alt="ReactJS logo" style="height:15px;">
 
@@ -13,5 +18,11 @@ Where I rapidly practice patterns w high value, reverse engineer and implement s
 ## SERVER <img src="public/readme/dotnet-mascot.png" alt="Dotnet's mascot" style="height:20px;">
 
 - TODO
+
+## The STACK
+
+- UI: Tailwind, MUI
+- Azure: x, x, x
+- X: x, x, x
 
 \- Johnny
