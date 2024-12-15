@@ -37,7 +37,10 @@ const PrioritisedHelperText = <T extends FieldValues>(props: PrioritisedHelperTe
     : undefined;
 
   if (isHideHelperText) return <HelperText />;
-  if (isAsyncValidating) return <LinearProgress className="mb-4 rounded-sm" />;
+  if (isAsyncValidating)
+    return (
+      <LinearProgress className="mb-4 h-[6px] -translate-y-[4px] rounded-sm rounded-bl-lg rounded-br-lg rounded-tl-none rounded-tr-none" />
+    );
   if (errorMessage) return <HelperText icon={<ErrorIcon />} text={errorMessage} />;
   if (isAsyncValidationSuccessful && successMessage)
     return <HelperText icon={<SuccessIcon color="green" />} text={successMessage} />;
