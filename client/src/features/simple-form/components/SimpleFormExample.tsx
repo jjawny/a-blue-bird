@@ -92,12 +92,7 @@ const HideMyEmailField = () => {
 
 const UsernameField = () => {
   return (
-    <GenericFormTextField<NewUserDto>
-      label="Username"
-      fieldName="username"
-      isRequired={true}
-      initialUntouchedMessage="Be creative!"
-    />
+    <GenericFormTextField<NewUserDto> label="Username" fieldName="username" isRequired={true} defaultMessage="Be creative!" />
   );
 };
 
