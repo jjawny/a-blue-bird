@@ -1,7 +1,7 @@
-import SimpleForm from "~/features/simple-form/components/SimpleForm";
+import SimpleFormExample from "~/features/simple-form/components/SimpleFormExample";
 
 function App() {
-  return <SimpleForm />;
+  return <SimpleFormExample />;
 }
 
 export default App;
