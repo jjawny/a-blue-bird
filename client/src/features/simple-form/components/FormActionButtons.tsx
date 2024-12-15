@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 import { IoIosSave as SaveIcon } from "react-icons/io";
 import { RxCross1 as DiscardIcon } from "react-icons/rx";
-import { NewUserDto } from "~/features/1-simple-form/models/NewUserDto";
+import { NewUserDto } from "~/features/simple-form/models/NewUserDto";
 
 export default function FormActionButtons() {
   const {
