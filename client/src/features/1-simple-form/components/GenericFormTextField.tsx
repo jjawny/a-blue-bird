@@ -4,8 +4,8 @@ import { Controller, FieldValues, Path, useFormContext } from "react-hook-form";
 import { GoCheckCircleFill as SuccessIcon } from "react-icons/go";
 import { HiInformationCircle as InfoIcon } from "react-icons/hi2";
 import { MdOutlineError as ErrorIcon } from "react-icons/md";
-import { getA11yAttributes } from "~/features/simple-form/helpers/a11y-helpers";
-import { debounce } from "~/features/simple-form/models/NewUserDto";
+import { getA11yAttributes } from "~/features/1-simple-form/helpers/a11y-helpers";
+import { debounce } from "~/shared/helpers/no-lodash-helpers";
 import HelperText from "./HelperText";
 import UndoChangesButton from "./UndoChangesButton";
 

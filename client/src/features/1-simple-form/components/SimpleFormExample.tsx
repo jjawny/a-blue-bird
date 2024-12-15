@@ -2,13 +2,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import { useCallback } from "react";
 import { Controller, FormProvider, useForm, useFormContext } from "react-hook-form";
-import {
-  getDefaultNewUserDto,
-  mockIsEmailTakenApiCall,
-  NewUserDto,
-  NewUserDtoSchema,
-} from "~/features/simple-form/models/NewUserDto";
+import { getDefaultNewUserDto, NewUserDto, NewUserDtoSchema } from "~/features/1-simple-form/models/NewUserDto";
 import { getRandomWordsString } from "../helpers/string-helpers";
+import { mockIsEmailTakenApiCall } from "../services/simple-form-mock-api-calls-service";
 import FormActionButtons from "./FormActionButtons";
 import GenericFormTextField from "./GenericFormTextField";
 
