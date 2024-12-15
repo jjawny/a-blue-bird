@@ -1,21 +1,24 @@
-import { IconButton, InputAdornment, LinearProgress, Skeleton, TextField } from "@mui/material";
-import React, { ReactNode, useCallback, useState } from "react";
+import { LinearProgress, Skeleton, TextField } from "@mui/material";
+import React, { useCallback, useState } from "react";
 import { Controller, FieldValues, Path, useFormContext } from "react-hook-form";
 import { GoCheckCircleFill as SuccessIcon } from "react-icons/go";
-import { IoArrowUndo as UndoIcon } from "react-icons/io5";
+import { HiInformationCircle as InfoIcon } from "react-icons/hi2";
 import { MdOutlineError as ErrorIcon } from "react-icons/md";
 import { getA11yAttributes } from "~/features/simple-form/helpers/a11y-helpers";
 import { debounce } from "~/features/simple-form/models/NewUserDto";
+import HelperText from "./HelperText";
+import UndoChangesButton from "./UndoChangesButton";
 
 type GenericFormTextFieldProps<T extends FieldValues> = {
   label: string;
   fieldName: Path<T>;
   type?: React.HTMLInputTypeAttribute;
   placeholder?: string;
-  successMessage?: string; // only shown when there are no errors
+  successMessage?: string; // only shown when there are no errors messages & onAsyncValidate has returned true
+  initialUntouchedMessage?: string; // only shown when the field has not been touched yet
   isForcedDisabled?: boolean;
   isRequired?: boolean;
-  onAsyncValidate?: (value: string) => Promise<void>; // triggered if synchronously valid, please set errors within
+  onAsyncValidate?: (value: string) => Promise<boolean>; // triggered after synchronously validation was successful, please set errors within so they can appear
 };
 
 export default function GenericFormTextField<T extends FieldValues>(props: GenericFormTextFieldProps<T>) {
@@ -25,11 +28,13 @@ export default function GenericFormTextField<T extends FieldValues>(props: Gener
     type,
     placeholder,
     successMessage,
+    initialUntouchedMessage,
     isRequired = false,
     isForcedDisabled = false,
     onAsyncValidate,
   } = props;
   const [isAsyncValidating, setIsAsyncValidating] = useState<boolean>(false);
+  const [isAsyncValidationSuccess, setIsAsyncValidationSuccess] = useState<boolean>(false);
   const {
     control,
     trigger,
@@ -54,10 +59,11 @@ export default function GenericFormTextField<T extends FieldValues>(props: Gener
   );
 
   const HelperTextFragment = useCallback((): JSX.Element => {
-    if (!isTouched) return <HelperText />;
+    if (!isTouched) return <HelperText icon={initialUntouchedMessage ? <InfoIcon /> : null} text={initialUntouchedMessage} />;
     if (isAsyncValidating) return <LinearProgress className="mb-4 rounded-sm" />;
     if (errorMessage) return <HelperText icon={<ErrorIcon />} text={errorMessage} />;
-    if (successMessage) return <HelperText icon={<SuccessIcon color="green" />} text={successMessage} />;
+    if (isAsyncValidationSuccess && successMessage)
+      return <HelperText icon={<SuccessIcon color="green" />} text={successMessage} />;
     return <HelperText />;
   }, [isTouched, errorMessage, successMessage, isAsyncValidating]);
 
@@ -86,7 +92,8 @@ export default function GenericFormTextField<T extends FieldValues>(props: Gener
             debouncedValidate().then(async (isValid) => {
               if (!!isValid && onAsyncValidate) {
                 setIsAsyncValidating(true);
-                await onAsyncValidate(e.target.value);
+                setIsAsyncValidationSuccess(false);
+                setIsAsyncValidationSuccess(await onAsyncValidate(e.target.value));
                 setIsAsyncValidating(false);
               }
             });
@@ -96,10 +103,10 @@ export default function GenericFormTextField<T extends FieldValues>(props: Gener
               style: {
                 borderBottomStyle: "inset",
                 borderBottomWidth: "2px",
-                borderBottomColor: "lightgray",
+                borderBottomColor: isDirty ? "#ffe2ae" : "lightgray", // TODO
                 borderRadius: "5px",
               },
-              endAdornment: isDirty ? <UndoChangesButton<T> fieldName={fieldName} /> : null,
+              endAdornment: !isDisabled && isDirty ? <UndoChangesButton<T> fieldName={fieldName} /> : null,
             },
             formHelperText: {
               style: { margin: 0 },
@@ -110,40 +117,3 @@ export default function GenericFormTextField<T extends FieldValues>(props: Gener
     />
   );
 }
-
-type HelperTextProps = {
-  icon?: ReactNode;
-  text?: string;
-};
-
-const HelperText = (props: HelperTextProps) => {
-  const { icon, text } = props;
-  return (
-    <span className="flex h-5 items-center gap-1">
-      {icon && <span className="mb-[2px]">{icon}</span>}
-      {text && text.trim() !== "" && text}
-    </span>
-  );
-};
-
-type UndoChangesButtonProps<T extends FieldValues> = {
-  fieldName: Path<T>;
-};
-
-const UndoChangesButton = <T extends FieldValues>(props: UndoChangesButtonProps<T>) => {
-  const { fieldName } = props;
-  const { resetField } = useFormContext<T>();
-
-  return (
-    <InputAdornment position="end">
-      <IconButton
-        edge="end"
-        size="small"
-        onClick={() => resetField(fieldName)}
-        aria-label="Undo changes, reverting to what you originally had"
-      >
-        <UndoIcon />
-      </IconButton>
-    </InputAdornment>
-  );
-};
