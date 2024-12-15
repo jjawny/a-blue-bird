@@ -9,7 +9,7 @@ import {
   NewUserDtoSchema,
 } from "~/features/simple-form/models/NewUserDto";
 import { getRandomWordsString } from "../helpers/string-helpers";
-import FormButtons from "./FormButtons";
+import FormActionButtons from "./FormActionButtons";
 import GenericFormTextField from "./GenericFormTextField";
 
 type SimpleFormProps = {
@@ -52,10 +52,10 @@ export default function SimpleFormExample(props: SimpleFormProps) {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)} className="flex w-60 flex-col">
-        <FormButtons />
+        <FormActionButtons />
         <UsernameField />
         <EmailField />
-        <HideMyEmailField />
+        {/* <HideMyEmailField /> */}
       </form>
     </FormProvider>
   );
@@ -95,7 +95,14 @@ const HideMyEmailField = () => {
 };
 
 const UsernameField = () => {
-  return <GenericFormTextField<NewUserDto> label="Username" fieldName="username" isRequired={true} />;
+  return (
+    <GenericFormTextField<NewUserDto>
+      label="Username"
+      fieldName="username"
+      isRequired={true}
+      initialUntouchedMessage="Be creative!"
+    />
+  );
 };
 
 const EmailField = () => {
@@ -107,9 +114,14 @@ const EmailField = () => {
     async (value: string) => {
       try {
         clearErrors(fieldName);
-        if (await mockIsEmailTakenApiCall(value)) setError(fieldName, { type: "manual", message: "Email already taken" });
+        if (await mockIsEmailTakenApiCall(value)) {
+          setError(fieldName, { type: "manual", message: "Email already taken" });
+          return false;
+        }
+        return true;
       } catch (error) {
         setError(fieldName, { type: "manual", message: "Unable to check email availability" });
+        return false;
       }
     },
     [clearErrors, setError, fieldName],
