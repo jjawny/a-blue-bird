@@ -48,7 +48,7 @@ export default function SimpleFormExample(props: SimpleFormProps) {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)} className="flex w-60 flex-col">
-        <FormActionButtons />
+        {!isReadOnly && <FormActionButtons />}
         <UsernameField />
         <EmailField />
         {/* <HideMyEmailField /> */}
@@ -105,6 +105,7 @@ const EmailField = () => {
     async (value: string) => {
       try {
         clearErrors(fieldName);
+        if (!value.trim()) return false;
         if (await mockIsEmailTakenApiCall(value)) {
           setError(fieldName, { type: "manual", message: "Email already taken" });
           return false;

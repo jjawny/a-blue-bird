@@ -100,9 +100,9 @@ export default function GenericFormTextField<T extends FieldValues>(props: Gener
           {...field}
           {...getA11yAttributes(label, placeholder, hasErrors)}
           {...(placeholder && { placeholder: placeholder })}
+          {...(!isDisabled && { required: isRequired })}
           type={type}
           label={label}
-          required={isRequired}
           disabled={isDisabled}
           error={hasErrors}
           onChange={(e) => {
@@ -130,3 +130,9 @@ export default function GenericFormTextField<T extends FieldValues>(props: Gener
     />
   );
 }
+
+/**
+ * Benefts:
+ * - undo changes for individual field (not clear, just back to default values)
+ * - conditional helper text - although 1x in priority order is opinionated, better UX to only have 1, see component footnotes for more
+ */
