@@ -12,7 +12,7 @@ export default function UndoChangesButton<T extends FieldValues>(props: UndoChan
 
   return (
     <InputAdornment position="end">
-      <Tooltip title="Undo changes" placement="right" enterDelay={700} arrow>
+      <Tooltip title="Undo changes" placement="right" enterDelay={700}>
         <IconButton
           edge="end"
           size="small"
