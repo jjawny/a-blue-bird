@@ -1,5 +1,5 @@
 import { Skeleton, TextField } from "@mui/material";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Controller, FieldValues, Path, useFormContext } from "react-hook-form";
 import { getA11yAttributes } from "~/features/simple-form/helpers/a11y-helpers";
 import { debounce } from "~/shared/helpers/no-lodash-helpers";
@@ -31,12 +31,11 @@ export default function GenericFormTextField<T extends FieldValues>(props: Gener
     onAsyncValidate,
   } = props;
   const [isAsyncValidating, setIsAsyncValidating] = useState<boolean>(false);
-  // TODO: when field changes (set by another, or reset) this should set back to false, maybe the debounced validation should run in a useeffect every time it changes instead?
-  // we need a use to trigger this back to false anyway
   const [isAsyncValidationSuccessful, setIsAsyncValidationSuccessful] = useState<boolean>(false);
   const {
     control,
     trigger,
+    watch,
     formState: { isLoading, dirtyFields, touchedFields, errors, disabled, isSubmitSuccessful, isSubmitting, isSubmitted },
   } = useFormContext<T>();
 
@@ -50,16 +49,45 @@ export default function GenericFormTextField<T extends FieldValues>(props: Gener
     [trigger, fieldName],
   );
 
-  // const isHideMyEmail = watch("isHideMyEmail");
-
-  // useEffect(() => {
-  // TODO: see todo above
-  // }, [])
-
+  const watchedField = watch(fieldName);
+  const watchedFieldRef = useRef(watchedField);
   const isDisabled = disabled || isForcedDisabled || isSubmitting || (isSubmitted && isSubmitSuccessful);
   const isDirty = !!dirtyFields[fieldName as keyof typeof dirtyFields];
   const isTouched = !!touchedFields[fieldName as keyof typeof touchedFields];
   const hasErrors = isTouched && !!errors[fieldName];
+
+  useEffect(
+    function captureLatestWatchFieldValue() {
+      // GOTCHA:
+      //  - Issue: Bc useEffect runs AFTER the render, useEffect will capture and use the previous (stale) watchedField value...
+      //    causing validation to be 1-step behind, i.e., a valid email is not checked until 2 keypresses
+      //  - Solution: Store and use the latest watchField value in a REF to persist between renders
+      watchedFieldRef.current = watchedField;
+    },
+    [watchedField],
+  );
+
+  useEffect(
+    function startAsyncValidator() {
+      const begin = debounce(async (value: string) => {
+        if (!onAsyncValidate) return;
+        setIsAsyncValidating(true);
+        // TODO: see if we can pass a cancellation token and cancel when we cancel the debounce as well
+        setIsAsyncValidationSuccessful(await onAsyncValidate(value));
+        setIsAsyncValidating(false);
+      }, 2000);
+
+      setIsAsyncValidationSuccessful(false);
+      if (isTouched && !hasErrors) {
+        begin(watchedFieldRef.current);
+      }
+
+      return () => {
+        begin.cancel();
+      };
+    },
+    [watchedField, fieldName, isTouched, hasErrors, onAsyncValidate, setIsAsyncValidating, setIsAsyncValidationSuccessful],
+  );
 
   if (isLoading) return <Skeleton variant="text" sx={{ fontSize: "1.625rem", padding: "14px", marginTop: "4px" }} />;
 
@@ -74,12 +102,13 @@ export default function GenericFormTextField<T extends FieldValues>(props: Gener
           {...(placeholder && { placeholder: placeholder })}
           type={type}
           label={label}
-          size="small"
-          margin="dense"
-          variant="outlined"
           required={isRequired}
           disabled={isDisabled}
           error={hasErrors}
+          onChange={(e) => {
+            field.onChange(e);
+            debouncedValidate();
+          }}
           helperText={
             <MemoizedPrioritisedHelperText
               fieldName={fieldName}
@@ -89,28 +118,11 @@ export default function GenericFormTextField<T extends FieldValues>(props: Gener
               isAsyncValidationSuccessful={isAsyncValidationSuccessful}
             />
           }
-          onChange={(e) => {
-            field.onChange(e);
-            debouncedValidate().then(async (isValid) => {
-              if (!!isValid && onAsyncValidate) {
-                setIsAsyncValidating(true);
-                setIsAsyncValidationSuccessful(false);
-                setIsAsyncValidationSuccessful(await onAsyncValidate(e.target.value));
-                setIsAsyncValidating(false);
-              }
-            });
-          }}
           slotProps={{
+            formHelperText: { style: { margin: 0 } },
             input: {
-              style: {
-                borderBottomStyle: "inset",
-                borderBottomWidth: "2px",
-                borderBottomColor: isDirty ? "#ffe2ae" : "lightgray", // TODO: fix color?
-              },
+              style: { ...(isDirty && { borderBottomColor: "#ffe3be" }) },
               endAdornment: !isDisabled && isDirty ? <UndoChangesButton<T> fieldName={fieldName} /> : null,
-            },
-            formHelperText: {
-              style: { margin: 0 },
             },
           }}
         />
@@ -118,9 +130,3 @@ export default function GenericFormTextField<T extends FieldValues>(props: Gener
     />
   );
 }
-
-/**
- * Benefts:
- * - undo changes for individual field (not clear, just back to default values)
- * - conditional helper text - although 1x in priority order is opinionated, better UX to only have 1, see component footnotes for more
- */
