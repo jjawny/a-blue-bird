@@ -1,6 +1,6 @@
 import { IconButton, InputAdornment, Tooltip } from "@mui/material";
 import { FieldValues, Path, useFormContext } from "react-hook-form";
-import { IoArrowUndo as UndoIcon } from "react-icons/io5";
+import { CiUndo as UndoIcon } from "react-icons/ci";
 
 type UndoChangesButtonProps<T extends FieldValues> = {
   fieldName: Path<T>;
