@@ -7,12 +7,27 @@ import { NewUserDto } from "~/features/simple-form/models/NewUserDto";
 export default function FormActionButtons() {
   const {
     reset,
-    formState: { isLoading, isDirty, disabled, isSubmitting, isSubmitted, isSubmitSuccessful },
+    formState: { isLoading, isDirty, disabled, isSubmitting, isSubmitted, isSubmitSuccessful, touchedFields },
   } = useFormContext<NewUserDto>();
-  const isDisabled = isLoading || !isDirty || disabled || isSubmitting || (isSubmitted && isSubmitSuccessful);
+  const isTouched = Object.keys(touchedFields).length > 0;
+  const isBothDisabled = isLoading || !isDirty || disabled || isSubmitting || (isSubmitted && isSubmitSuccessful);
+  const isDiscardDisabled = !isTouched && isBothDisabled;
+  const isSaveDisabled = isBothDisabled;
 
   return (
-    <div className="mb-5 flex gap-1">
+    <div className="mt-5 flex gap-1 self-end">
+      <Button
+        type="reset"
+        variant="outlined"
+        disableElevation
+        color="primary"
+        style={{ paddingTop: 0, paddingBottom: 0 }}
+        disabled={isDiscardDisabled}
+        startIcon={<DiscardIcon />}
+        onClick={() => reset()}
+      >
+        Discard
+      </Button>
       <Button
         type="submit"
         style={{ paddingTop: 0, paddingBottom: 0 }}
@@ -20,22 +35,10 @@ export default function FormActionButtons() {
         disableElevation
         color="primary"
         size="small"
-        disabled={isDisabled}
+        disabled={isSaveDisabled}
         startIcon={<SaveIcon />}
       >
         Save
-      </Button>
-      <Button
-        type="reset"
-        variant="outlined"
-        disableElevation
-        color="primary"
-        style={{ paddingTop: 0, paddingBottom: 0 }}
-        disabled={isDisabled}
-        startIcon={<DiscardIcon />}
-        onClick={() => reset()}
-      >
-        Discard
       </Button>
     </div>
   );
