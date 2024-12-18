@@ -113,3 +113,10 @@ button:focus-visible {
 .read-the-docs {
   color: #888;
 }
+
+/* APP-SPECIFIC */
+.test {
+  background: url("/whats-happening.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
