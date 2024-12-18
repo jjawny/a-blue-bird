@@ -1,14 +1,23 @@
 import { Button } from "@mui/material";
-import { useFormContext } from "react-hook-form";
+import { FieldValues, useFormContext } from "react-hook-form";
 import { IoIosSave as SaveIcon } from "react-icons/io";
 import { RxCross1 as DiscardIcon } from "react-icons/rx";
-import { NewUserDto } from "~/features/simple-form/models/NewUserDto";
 
-export default function FormActionButtons() {
+type GenericFormActionButtonsProps<T extends FieldValues> = {
+  classNames?: string;
+};
+
+/**
+ * Notes:
+ *  - MUST be used inside <FormProvider>
+ * @param {GenericFormActionButtonsProps} props
+ * @returns JSX
+ */
+export default function GenericFormActionButtons<T extends FieldValues>(props: GenericFormActionButtonsProps<T>) {
   const {
     reset,
     formState: { isLoading, isDirty, disabled, isSubmitting, isSubmitted, isSubmitSuccessful, touchedFields },
-  } = useFormContext<NewUserDto>();
+  } = useFormContext<T>();
   const isTouched = Object.keys(touchedFields).length > 0;
   const isBothDisabled = isLoading || !isDirty || disabled || isSubmitting || (isSubmitted && isSubmitSuccessful);
   const isDiscardDisabled = !isTouched && isBothDisabled;

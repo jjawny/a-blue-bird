@@ -5,7 +5,7 @@ import { GoCheckCircleFill as SuccessIcon } from "react-icons/go";
 import { HiInformationCircle as InfoIcon } from "react-icons/hi2";
 import { MdOutlineError as ErrorIcon } from "react-icons/md";
 
-type PrioritisedHelperTextProps<T extends FieldValues> = {
+type GenericGenericFormTextFieldHelperTextProps<T extends FieldValues> = {
   fieldName: Path<T>;
   successMessage?: string;
   defaultMessage?: string;
@@ -14,17 +14,20 @@ type PrioritisedHelperTextProps<T extends FieldValues> = {
 };
 
 /**
- * Priority order (opinionated):
- *  1. Don't show when the form is saving/saved as user can't interact, the helper text is useless
- *  2. If currently performing async validated, show loading bar
- *  3. If there are errors, show
- *  4. If there are no errors and async validation was successful, show success message
- *  5. If there is a default message, show
+ * Notes:
+ *  - MUST be used inside <FormProvider>
+ *
+ * Priority (opinionated):
+ *  1. Don't show any when the form is saving/saved and the user cannot interact
+ *  2. If performing async validation, show loading bar
+ *  3. If the field has errors, show error messages
+ *  4. If the field has no errors and async validation was successful, show success message
+ *  5. If the field hasn't been touched yet, show default message
  *  6. Show nothing
- * @param {PrioritisedHelperTextProps} props
+ * @param {GenericGenericFormTextFieldHelperTextProps} props
  * @returns JSX
  */
-const PrioritisedHelperText = <T extends FieldValues>(props: PrioritisedHelperTextProps<T>) => {
+const GenericFormTextFieldHelperText = <T extends FieldValues>(props: GenericGenericFormTextFieldHelperTextProps<T>) => {
   const { fieldName, successMessage, defaultMessage, isAsyncValidating = false, isAsyncValidationSuccessful = false } = props;
   const {
     formState: { touchedFields, errors, isSubmitSuccessful, isSubmitting, isSubmitted },
@@ -44,7 +47,7 @@ const PrioritisedHelperText = <T extends FieldValues>(props: PrioritisedHelperTe
   if (errorMessage) return <HelperText icon={<ErrorIcon />} text={errorMessage} />;
   if (isAsyncValidationSuccessful && successMessage)
     return <HelperText icon={<SuccessIcon color="green" />} text={successMessage} />;
-  if (defaultMessage) return <HelperText icon={<InfoIcon />} text={defaultMessage} />;
+  if (!isTouched && defaultMessage) return <HelperText icon={<InfoIcon />} text={defaultMessage} />;
   return <HelperText />;
 };
 
@@ -63,5 +66,5 @@ const HelperText = (props: HelperTextProps) => {
   );
 };
 
-export const MemoizedPrioritisedHelperText = memo(PrioritisedHelperText);
-export default MemoizedPrioritisedHelperText;
+export const MemoizedGenericFormTextFieldHelperText = memo(GenericFormTextFieldHelperText);
+export default MemoizedGenericFormTextFieldHelperText;

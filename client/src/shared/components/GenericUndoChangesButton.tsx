@@ -2,11 +2,20 @@ import { IconButton, InputAdornment, Tooltip } from "@mui/material";
 import { FieldValues, Path, useFormContext } from "react-hook-form";
 import { CiUndo as UndoIcon } from "react-icons/ci";
 
-type UndoChangesButtonProps<T extends FieldValues> = {
+type GenericUndoChangesButtonProps<T extends FieldValues> = {
   fieldName: Path<T>;
 };
 
-export default function UndoChangesButton<T extends FieldValues>(props: UndoChangesButtonProps<T>) {
+/**
+ * Notes:
+ *  - MUST be used inside <FormProvider>
+ *  - For UX, the tooltip is delayed to prevent constant flashing all over the screen (as many fields = many undo buttons)
+ *  - For UX, use this button alone inside the <TextField> (there should be other UI feedback for pending changes, errors, etc)
+ *  - What about a button to clear the field? Don't be lazy: Ctrl+A & DELETE
+ * @param {GenericUndoChangesButtonProps} props
+ * @returns JSX
+ */
+export default function GenericUndoChangesButton<T extends FieldValues>(props: GenericUndoChangesButtonProps<T>) {
   const { fieldName } = props;
   const { resetField } = useFormContext<T>();
 
@@ -25,12 +34,3 @@ export default function UndoChangesButton<T extends FieldValues>(props: UndoChan
     </InputAdornment>
   );
 }
-
-/**
- * 🦶🏻 FOOTNOTES:
- *  - Uses RHF context ∴ must be inside <FormProvider>
- *  - For UX, delay showing the tooltip to prevent constant flashing all over the screen (as many fields = many undo buttons)
- *  - The user will quickly learn what this does as its effect is immediate
- *  - For UX, use this button alone inside the <TextField> (there should be other UI feedback for pending changes, errors, etc)
- *  - What about a button to clear the field? Don't be lazy: Ctrl+A & DELETE
- */

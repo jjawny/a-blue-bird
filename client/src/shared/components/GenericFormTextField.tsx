@@ -1,24 +1,37 @@
 import { Skeleton, TextField } from "@mui/material";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Controller, FieldValues, Path, useFormContext } from "react-hook-form";
-import { getA11yAttributes } from "~/features/simple-form/helpers/a11y-helpers";
+import { getA11yAttributes } from "~/shared/helpers/a11y-helpers";
 import { debounce } from "~/shared/helpers/no-lodash-helpers";
 // OWN COMPONENTS
-import MemoizedPrioritisedHelperText from "./PrioritisedHelperText";
-import UndoChangesButton from "./UndoChangesButton";
+import MemoizedGenericFormTextFieldHelperText from "~/shared/components/GenericFormTextFieldHelperText";
+import GenericUndoChangesButton from "~/shared/components/GenericUndoChangesButton";
 
 type GenericFormTextFieldProps<T extends FieldValues> = {
   label: string;
   fieldName: Path<T>;
   type?: React.HTMLInputTypeAttribute;
   placeholder?: string;
-  successMessage?: string; // only shown when there are no error messages & onAsyncValidate() has returned true
-  defaultMessage?: string; // only shown when not not saving/saved, and no errors/success messages
+  successMessage?: string;
+  defaultMessage?: string;
   isForcedDisabled?: boolean;
   isRequired?: boolean;
-  onAsyncValidate?: (value: string) => Promise<boolean>; // triggered after synchronous validation was successful, please set any errors within so they can appear
+  onAsyncValidate?: (value: string) => Promise<boolean>;
 };
 
+/**
+ * Notes:
+ *  - MUST be used inside <FormProvider>
+ *  - onAsyncValidate() should set errors for the same field within <FormProvider> so they appear as helper text
+ *
+ * Benefts:
+ *  - Undo changes for field-only (revert back to initial value)
+ *  - Handles all useful states, when form is [dirty, saving, ...]
+ *  - Debounced validation (for Yup schema and optional async fn)
+ *  - Dynamic helper text based on state
+ * @param {GenericFormTextFieldProps} props
+ * @returns JSX
+ */
 export default function GenericFormTextField<T extends FieldValues>(props: GenericFormTextFieldProps<T>) {
   const {
     label,
@@ -73,7 +86,7 @@ export default function GenericFormTextField<T extends FieldValues>(props: Gener
       const begin = debounce(async (value: string) => {
         if (!onAsyncValidate) return;
         setIsAsyncValidating(true);
-        // TODO: see if we can pass a cancellation token and cancel when we cancel the debounce as well
+        // TODO: see if we can pass an optional cancellation token and cancel when we cancel the debounce as well
         setIsAsyncValidationSuccessful(await onAsyncValidate(value));
         setIsAsyncValidating(false);
       }, 2000);
@@ -111,7 +124,7 @@ export default function GenericFormTextField<T extends FieldValues>(props: Gener
             debouncedValidate();
           }}
           helperText={
-            <MemoizedPrioritisedHelperText
+            <MemoizedGenericFormTextFieldHelperText
               fieldName={fieldName}
               successMessage={successMessage}
               defaultMessage={defaultMessage}
@@ -123,7 +136,7 @@ export default function GenericFormTextField<T extends FieldValues>(props: Gener
             formHelperText: { style: { margin: 0 } },
             input: {
               style: { ...(isDirty && { borderBottomColor: "#ffe3be" }) },
-              endAdornment: !isDisabled && isDirty ? <UndoChangesButton<T> fieldName={fieldName} /> : null,
+              endAdornment: !isDisabled && isDirty ? <GenericUndoChangesButton<T> fieldName={fieldName} /> : null,
             },
           }}
         />
@@ -131,9 +144,3 @@ export default function GenericFormTextField<T extends FieldValues>(props: Gener
     />
   );
 }
-
-/**
- * Benefts:
- * - undo changes for individual field (not clear, just back to default values)
- * - conditional helper text - although 1x in priority order is opinionated, better UX to only have 1, see component footnotes for more
- */

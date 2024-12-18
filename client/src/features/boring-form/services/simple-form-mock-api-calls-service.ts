@@ -1,4 +1,4 @@
-import { isValidEmailFormat } from "../helpers/email-helpers";
+import { isValidEmailFormat } from "~/shared/helpers/email-helpers";
 
 export const mockIsEmailTakenApiCall = async (email: string): Promise<boolean> => {
   console.debug("'mockIsEmailTakenApiCall' called, checking:", email);

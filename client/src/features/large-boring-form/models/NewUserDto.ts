@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import { isValidEmailFormat } from "../helpers/email-helpers";
+import { isValidEmailFormat } from "../../../shared/helpers/email-helpers";
 
 export type NewUserDto = Yup.InferType<typeof NewUserDtoSchema>;
 export const getDefaultNewUserDto = (): NewUserDto => NewUserDtoSchema.cast({});

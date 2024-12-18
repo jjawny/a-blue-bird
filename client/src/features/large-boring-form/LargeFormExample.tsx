@@ -2,15 +2,16 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import { useCallback } from "react";
 import { Controller, FormProvider, useForm, useFormContext } from "react-hook-form";
-import { getDefaultNewUserDto, NewUserDto, NewUserDtoSchema } from "~/features/simple-form/models/NewUserDto";
-import { getRandomWordsString } from "../helpers/string-helpers";
-import { mockIsEmailTakenApiCall } from "../services/simple-form-mock-api-calls-service";
+import { getDefaultNewUserDto, NewUserDto, NewUserDtoSchema } from "~/features/large-boring-form/models/NewUserDto";
+import { mockIsEmailTakenApiCall } from "~/features/large-boring-form/services/simple-form-mock-api-calls-service";
+import { getRandomWordsString } from "~/shared/helpers/string-helpers";
 // OWN COMPONENTS
-import FormActionButtons from "./FormActionButtons";
-import GenericFormTextField from "./GenericFormTextField";
+import GenericFormActionButtons from "~/shared/components/GenericFormActionButtons";
+import GenericFormTextField from "~/shared/components/GenericFormTextField";
 
-type SimpleFormProps = {
+type LargeFormExampleProps = {
   isReadOnly?: boolean;
+  // classNames:
 };
 
 const getDefaultValues = async () => {
@@ -20,7 +21,7 @@ const getDefaultValues = async () => {
   return defaultUser;
 };
 
-export default function SimpleFormExample(props: SimpleFormProps) {
+export default function LargeFormExample(props: LargeFormExampleProps) {
   const { isReadOnly = false } = props;
   const methods = useForm({
     defaultValues: async () => await getDefaultValues(),
@@ -33,26 +34,30 @@ export default function SimpleFormExample(props: SimpleFormProps) {
   // TODO: Separate form for complexity one of many dropdown, when condition for postal address, wiz with badge errors,
   // TODO: remove when here
 
-  const onSubmit = async (data: NewUserDto) => {
+  const onSubmit = async (formData: NewUserDto) => {
     await new Promise((p) => setTimeout(p, 2000));
     try {
+      const formDataSanitized = Object.fromEntries(
+        Object.entries(formData).map(([key, value]) => [key, typeof value === "string" ? value.trim() : value]),
+      );
+
       console.log("pre", methods.formState.isSubmitSuccessful);
 
-      if (data.username !== "jjj") throw new Error("forcing issubmitsuccessful false");
+      if (formData.username !== "jjj") throw new Error("forcing issubmitsuccessful false");
     } catch (e: any) {
       console.log("post", methods.formState.isSubmitSuccessful);
       methods.setError("root", { type: "manual", message: "form submission failed" });
     }
-    console.log("Submitted:", data);
+    console.log("Submitted:", formData);
   };
 
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)} className="flex w-60 flex-col">
-        {!isReadOnly && <FormActionButtons />}
         <UsernameField />
         <EmailField />
-        {/* <HideMyEmailField /> */}
+        <HideMyEmailField />
+        {!isReadOnly && <GenericFormActionButtons<NewUserDto> />}
       </form>
     </FormProvider>
   );
@@ -106,7 +111,8 @@ const EmailField = () => {
     async (value: string) => {
       try {
         clearErrors(fieldName);
-        if (!value.trim()) return false;
+        const valueFormatted = value.trim();
+        if (!valueFormatted) return false;
         if (await mockIsEmailTakenApiCall(value)) {
           setError(fieldName, { type: "manual", message: "Email already taken" });
           return false;
@@ -127,6 +133,7 @@ const EmailField = () => {
       type="email"
       placeholder="🤫 Psst, try bro@bro.com"
       successMessage="Available"
+      defaultMessage="Join BlueBird today"
       isRequired={!isHideMyEmail}
       isForcedDisabled={isHideMyEmail}
       onAsyncValidate={!isHideMyEmail ? isEmailTaken : undefined}
