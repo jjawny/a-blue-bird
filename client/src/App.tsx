@@ -1,14 +1,8 @@
-import { Paper } from "@mui/material";
 // OWN COMPONENTS
-import SimpleFormExample from "~/features/simple-form/components/SimpleFormExample";
+import BoringForm from "~/features/boring-form/components/BoringForm";
 
 function App() {
-  return (
-    <Paper>
-      <h1 className="mb-5 w-60 text-start">a boring form</h1>
-      <SimpleFormExample />
-    </Paper>
-  );
+  return <BoringForm />;
 }
 
 export default App;
