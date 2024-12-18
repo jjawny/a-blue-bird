@@ -33,13 +33,6 @@ export const theme = createTheme({
         },
       },
     },
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          padding: 10,
-        },
-      },
-    },
     MuiTooltip: {
       defaultProps: {
         arrow: true,
