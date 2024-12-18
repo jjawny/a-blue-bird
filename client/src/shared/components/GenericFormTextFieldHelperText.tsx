@@ -39,6 +39,7 @@ const GenericFormTextFieldHelperText = <T extends FieldValues>(props: GenericGen
     ? errors && (errors as Record<string, { message?: string }>)[fieldName as string]?.message // Must cast like this to access bc of 'T extends FieldValues' changes the type to be complex beyond my comprehension
     : undefined;
 
+  // RENDER
   if (isHideHelperText) return <HelperText />;
   if (isAsyncValidating)
     return (
