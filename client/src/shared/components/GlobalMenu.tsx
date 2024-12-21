@@ -25,7 +25,12 @@ export default function GlobalMenu(props: GlobalMenuProps) {
       <List>
         <Link to={"/"}>
           <ListItem key={"/"} disablePadding>
-            <ListItemButton>
+            <ListItemButton
+              sx={{
+                marginX: "10px",
+                borderRadius: "10px",
+              }}
+            >
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
@@ -35,7 +40,12 @@ export default function GlobalMenu(props: GlobalMenuProps) {
         </Link>
         <Link to={"/about"}>
           <ListItem key={"/about"} disablePadding>
-            <ListItemButton>
+            <ListItemButton
+              sx={{
+                marginX: "10px",
+                borderRadius: "10px",
+              }}
+            >
               <ListItemIcon>
                 <ClipboardIcon />
               </ListItemIcon>
@@ -45,7 +55,12 @@ export default function GlobalMenu(props: GlobalMenuProps) {
         </Link>
         <Link to={"/boring-form"}>
           <ListItem key={"/boring-form"} disablePadding>
-            <ListItemButton>
+            <ListItemButton
+              sx={{
+                marginX: "10px",
+                borderRadius: "10px",
+              }}
+            >
               <ListItemIcon>
                 <ClipboardIcon />
               </ListItemIcon>
@@ -61,6 +76,9 @@ export default function GlobalMenu(props: GlobalMenuProps) {
       variant="persistent"
       anchor="left"
       open={isMenuOpen}
+      PaperProps={{
+        elevation: 1, // Set the elevation of the Paper
+      }}
       sx={{
         width: width,
         flexShrink: 0,
