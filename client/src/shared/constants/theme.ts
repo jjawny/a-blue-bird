@@ -28,7 +28,7 @@ export const theme = createTheme({
           "& .MuiOutlinedInput-root": {
             borderBottomStyle: "inset",
             borderBottomWidth: "2px",
-            borderBottomColor: "lightgray",
+            borderBottomColor: "gray",
           },
         },
       },
