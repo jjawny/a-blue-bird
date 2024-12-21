@@ -45,13 +45,13 @@ export default function BoringForm(props: BoringFormProps) {
 
   return (
     <Paper>
-      <div className="flex w-full opacity-50">
+      {/* <div className="flex w-full opacity-50">
         <div className="test h-6 flex-grow rounded-br-2xl bg-orange-300"></div>
         <ChromeTabLikeTail />
         <div className="flex h-6 select-none justify-end gap-2 bg-white pr-3 text-stone-400">
           <img src="/favicon.ico" />
         </div>
-      </div>
+      </div> */}
 
       {/* TEMP solution, find vid of best practice passing in styles (margins etc) */}
       <div className="p-20">
