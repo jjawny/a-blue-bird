@@ -1,4 +1,4 @@
-import { Autocomplete, Slide, TextField, useScrollTrigger } from "@mui/material";
+import { Autocomplete, Slide, TextField, Typography, useScrollTrigger } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import { useTheme } from "@mui/material/styles";
@@ -22,7 +22,7 @@ export default function GlobalHeader(props: GlobalHeaderProps) {
 
   const ChromeTabLikeTail = useMemo(() => {
     return (
-      <div className="relative h-[20px] w-[123px]">
+      <div className="relative h-[20px] w-[21px]">
         <div
           className="absolute left-0 top-0 z-0 h-full w-full scale-x-[-1]"
           style={{
@@ -31,7 +31,10 @@ export default function GlobalHeader(props: GlobalHeaderProps) {
           }}
         ></div>
         {/* grab bg-white from current theme background */}
-        <div className="absolute left-0 top-0 z-50 h-full w-full rounded-tl-[20px] bg-white"></div>
+        <div
+          className="absolute left-0 top-0 z-50 h-full w-full rounded-tl-[20px]"
+          style={{ backgroundColor: "#fafafa" }}
+        ></div>
       </div>
     );
   }, []);
@@ -77,7 +80,7 @@ export default function GlobalHeader(props: GlobalHeaderProps) {
           borderBottom: "solid 1px lightgray",
           zIndex: (theme) => theme.zIndex.drawer + 1, // ensure drawer bar stays above
           left: 0,
-          width: "calc(100vw - 123px)", // must match width
+          width: "calc(100vw - 21px)", // must match width
           borderBottomRightRadius: "20px",
           backgroundColor: headerColor,
           transition: theme.transitions.create(["margin", "width"], {
@@ -104,10 +107,12 @@ export default function GlobalHeader(props: GlobalHeaderProps) {
               },
             }}
           >
-            {isMenuOpen ? <MenuOpenIcon color="white" /> : <MenuIcon color="white" />}
+            {isMenuOpen ? <MenuOpenIcon color="" /> : <MenuIcon color="" />}
           </IconButton>
-          <div className="flex w-full items-center justify-between gap-2">
-            <p>BlueBird</p>
+          <div className="flex w-full items-center justify-between gap-2 px-2">
+            <Typography className="!font-graffiti" color="primary" variant="h6" lineHeight={1}>
+              BlueBird
+            </Typography>
             <Autocomplete
               size="small"
               disablePortal
@@ -144,7 +149,7 @@ export default function GlobalHeader(props: GlobalHeaderProps) {
             <img src="./placeholder-avatar.webp" className="h-5 w-5" />
           </div>
         </Toolbar>
-        <div className="absolute -right-[123px]">{ChromeTabLikeTail}</div>
+        <div className="absolute -right-[21px]">{ChromeTabLikeTail}</div>
       </AppBar>
     </HideOnScroll>
   );
