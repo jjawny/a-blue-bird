@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         graffiti: ["Sedgwick Ave Display", "sans-serif"],
+        syne: ["Syne", "sans-serif"],
       },
     },
   },
