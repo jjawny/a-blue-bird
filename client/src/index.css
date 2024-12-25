@@ -5,6 +5,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* #region VITE NEW APP DEFAULT STYLES */
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -17,6 +19,8 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --behind-chat-bubble-tail-color: #fafafa;
 }
 
 a {
@@ -118,9 +122,92 @@ button:focus-visible {
   color: #888;
 }
 
-/* APP-SPECIFIC */
-.test {
-  background: url("/whats-happening.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
+/* #endregion */
+
+/* #region GENERIC STYLES */
+
+.debug {
+  border: 3px dashed greenyellow;
 }
+
+/* #endregion */
+
+/* #region CHAT STYLES */
+
+.chat-container {
+  border-radius: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 1.25rem;
+  padding: 0.5rem 1.5rem;
+}
+
+.chat-bubble {
+  border-radius: 1.15rem;
+  line-height: 1.25;
+  padding: 0.5rem 0.875rem;
+  position: relative; /* for absolute tails */
+  word-wrap: break-word;
+  width: fit-content;
+}
+
+.chat-bubble::before,
+.chat-bubble::after {
+  /* all tails */
+  bottom: -0.1rem;
+  content: "";
+  height: 1rem;
+  position: absolute;
+}
+
+.chat-bubble.from-me {
+  align-self: flex-end;
+  background-color: #82a4c7;
+  color: var(--behind-chat-bubble-tail-color);
+}
+
+.chat-bubble.from-me::before {
+  /* our tail */
+  border-bottom-left-radius: 0.8rem 0.7rem;
+  border-right: 1.3rem solid #82a4c7;
+  right: -0.35rem;
+  transform: translate(0, -0.1rem);
+}
+
+.chat-bubble.from-me::after {
+  /* our tail */
+  background-color: var(--behind-chat-bubble-tail-color);
+  border-bottom-left-radius: 0.5rem;
+  right: -40px;
+  transform: translate(-30px, -2px);
+  width: 10px;
+}
+
+.chat-bubble.from-them {
+  align-items: flex-start;
+  background-color: black;
+  color: var(--behind-chat-bubble-tail-color);
+}
+
+.chat-bubble.from-them:before {
+  /* their tail */
+  border-bottom-right-radius: 0.8rem 0.7rem;
+  border-left: 1.3rem solid black;
+  left: -0.35rem;
+  transform: translate(0, -0.1rem);
+}
+
+.chat-bubble.from-them::after {
+  background-color: var(--behind-chat-bubble-tail-color);
+  border-bottom-right-radius: 0.5rem;
+  left: 20px;
+  transform: translate(-30px, -2px);
+  width: 10px;
+}
+
+.no-tail::before {
+  display: none;
+}
+
+/* #endregion */
