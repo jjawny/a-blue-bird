@@ -39,9 +39,7 @@ const HeroChatBubble = () => {
           "chat-bubble from-them",
           "bg-stone-900 shadow-lg shadow-pink-300",
           "text-start font-extrabold tracking-tight",
-          "h-[9rem] min-w-[18rem] text-5xl",
-          "sm:h-[11rem] sm:min-w-[22rem] sm:text-6xl",
-          "2xl:h-[23rem] 2xl:min-w-[44rem] 2xl:text-[8rem]",
+          "h-[20vw] min-w-[35vw] text-[7vw]",
         )}
       >
         <Typewriter options={typewriterOptions} />
@@ -84,7 +82,8 @@ const GreetingChatBubble = () => {
       className={cn(
         "chat-bubble from-me",
         "shadow-lg shadow-cyan-100",
-        "flex min-w-[10rem] justify-end whitespace-nowrap text-xs",
+        "flex justify-end whitespace-nowrap",
+        "min-w-[13vw] text-[1vw]",
       )}
     >
       {greeting} 👋🏻
