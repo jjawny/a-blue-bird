@@ -7,7 +7,7 @@ import { routes } from "~/shared/constants/routes";
 import { cn } from "~/shared/helpers/classname-helpers";
 import { useFocusOnKeyPress } from "~/shared/hooks/useFocusOnKeyPress";
 
-const TRANSITION_WIDTH_DELAY_MS = 100;
+const WIDTH_TRANSITION_MS = 100;
 
 export default function TopBarSearch() {
   const [searchValue, setSearchValue] = useState("");
@@ -23,7 +23,7 @@ export default function TopBarSearch() {
 
   // TLDR:
   //  - Wait for <TextField> width to finish transforming so <Suggestions> popper renders with a matching width
-  const handleOpen = () => setTimeout(() => setIsSuggestionsOpen(true), TRANSITION_WIDTH_DELAY_MS + 10);
+  const handleOpen = () => setTimeout(() => setIsSuggestionsOpen(true), WIDTH_TRANSITION_MS + 10);
   const handleClose = () => setIsSuggestionsOpen(false);
 
   return (
@@ -56,7 +56,7 @@ export default function TopBarSearch() {
               sx={{
                 margin: 0,
                 width: isFocused ? 200 : 123,
-                transition: `width ${TRANSITION_WIDTH_DELAY_MS}ms ease-out`,
+                transition: `width ${WIDTH_TRANSITION_MS}ms ease-out`,
                 "& .MuiInputBase-root": {
                   padding: "0 !important",
                   border: "none",
