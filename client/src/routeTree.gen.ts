@@ -13,32 +13,32 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as BoringFormImport } from './routes/boring-form'
+import { Route as IndexImport } from './routes/index'
 
 // Create Virtual Routes
 
-const AboutLazyImport = createFileRoute('/about')()
-const IndexLazyImport = createFileRoute('/')()
+const LandingsLazyImport = createFileRoute('/landings')()
+const BoringFormLazyImport = createFileRoute('/boring-form')()
 
 // Create/Update Routes
 
-const AboutLazyRoute = AboutLazyImport.update({
-  id: '/about',
-  path: '/about',
+const LandingsLazyRoute = LandingsLazyImport.update({
+  id: '/landings',
+  path: '/landings',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/about.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/landings.lazy').then((d) => d.Route))
 
-const BoringFormRoute = BoringFormImport.update({
+const BoringFormLazyRoute = BoringFormLazyImport.update({
   id: '/boring-form',
   path: '/boring-form',
   getParentRoute: () => rootRoute,
-} as any)
+} as any).lazy(() => import('./routes/boring-form.lazy').then((d) => d.Route))
 
-const IndexLazyRoute = IndexLazyImport.update({
+const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+} as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -48,21 +48,21 @@ declare module '@tanstack/react-router' {
       id: '/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexLazyImport
+      preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
     '/boring-form': {
       id: '/boring-form'
       path: '/boring-form'
       fullPath: '/boring-form'
-      preLoaderRoute: typeof BoringFormImport
+      preLoaderRoute: typeof BoringFormLazyImport
       parentRoute: typeof rootRoute
     }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutLazyImport
+    '/landings': {
+      id: '/landings'
+      path: '/landings'
+      fullPath: '/landings'
+      preLoaderRoute: typeof LandingsLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -71,43 +71,43 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexLazyRoute
-  '/boring-form': typeof BoringFormRoute
-  '/about': typeof AboutLazyRoute
+  '/': typeof IndexRoute
+  '/boring-form': typeof BoringFormLazyRoute
+  '/landings': typeof LandingsLazyRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexLazyRoute
-  '/boring-form': typeof BoringFormRoute
-  '/about': typeof AboutLazyRoute
+  '/': typeof IndexRoute
+  '/boring-form': typeof BoringFormLazyRoute
+  '/landings': typeof LandingsLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexLazyRoute
-  '/boring-form': typeof BoringFormRoute
-  '/about': typeof AboutLazyRoute
+  '/': typeof IndexRoute
+  '/boring-form': typeof BoringFormLazyRoute
+  '/landings': typeof LandingsLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/boring-form' | '/about'
+  fullPaths: '/' | '/boring-form' | '/landings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/boring-form' | '/about'
-  id: '__root__' | '/' | '/boring-form' | '/about'
+  to: '/' | '/boring-form' | '/landings'
+  id: '__root__' | '/' | '/boring-form' | '/landings'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexLazyRoute: typeof IndexLazyRoute
-  BoringFormRoute: typeof BoringFormRoute
-  AboutLazyRoute: typeof AboutLazyRoute
+  IndexRoute: typeof IndexRoute
+  BoringFormLazyRoute: typeof BoringFormLazyRoute
+  LandingsLazyRoute: typeof LandingsLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexLazyRoute: IndexLazyRoute,
-  BoringFormRoute: BoringFormRoute,
-  AboutLazyRoute: AboutLazyRoute,
+  IndexRoute: IndexRoute,
+  BoringFormLazyRoute: BoringFormLazyRoute,
+  LandingsLazyRoute: LandingsLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -122,17 +122,17 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/boring-form",
-        "/about"
+        "/landings"
       ]
     },
     "/": {
-      "filePath": "index.lazy.tsx"
+      "filePath": "index.tsx"
     },
     "/boring-form": {
-      "filePath": "boring-form.tsx"
+      "filePath": "boring-form.lazy.tsx"
     },
-    "/about": {
-      "filePath": "about.lazy.tsx"
+    "/landings": {
+      "filePath": "landings.lazy.tsx"
     }
   }
 }
