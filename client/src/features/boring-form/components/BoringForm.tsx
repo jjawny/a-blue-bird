@@ -15,7 +15,7 @@ type BoringFormProps = {
 
 export default function BoringForm(props: BoringFormProps) {
   const { isReadOnly = false } = props;
-  const methods = useForm({
+  const methods = useForm<BoringFormDto>({
     defaultValues: async () => getDefaultBoringFormDto(),
     resolver: yupResolver(BoringFormDtoSchema),
     mode: "onChange",
@@ -39,6 +39,7 @@ export default function BoringForm(props: BoringFormProps) {
     } catch (e: any) {
       console.log("post", methods.formState.isSubmitSuccessful);
       methods.setError("root", { type: "manual", message: "form submission failed" });
+      // toast and banner?
     }
     console.log("Submitted:", formData);
   };
