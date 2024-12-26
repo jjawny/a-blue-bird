@@ -5,6 +5,7 @@ import { memo, useRef, useState } from "react";
 import { TbHandClick as ClickIcon } from "react-icons/tb";
 import { routes } from "~/shared/constants/routes";
 import { cn } from "~/shared/helpers/classname-helpers";
+import { useFocusOnKeyPress } from "~/shared/hooks/useFocusOnKeyPress";
 
 const TRANSITION_WIDTH_DELAY_MS = 100;
 
@@ -12,6 +13,7 @@ export default function TopBarSearch() {
   const [searchValue, setSearchValue] = useState("");
   const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  useFocusOnKeyPress(inputRef, "/", "Escape");
 
   // TLDR:
   //  - To render correctly, we must clear the search value AFTER navigation re-render has completed
