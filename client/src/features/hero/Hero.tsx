@@ -1,13 +1,26 @@
+import { useTheme } from "@mui/material/styles";
 import { useCallback, useEffect, useState } from "react";
 import Tilt from "react-parallax-tilt";
 import Typewriter, { Options } from "typewriter-effect";
 import { cn } from "~/shared/helpers/classname-helpers";
 
 export default function Hero() {
+  const theme = useTheme();
+  const backgroundColor = theme.palette.globalContainer?.background;
+  const chatContainerId = "hero-chat-container";
+
+  useEffect(
+    function overrideChatBackgroundCss() {
+      const root = document.getElementById(chatContainerId);
+      if (root && backgroundColor) root.style.setProperty("--behind-chat-bubble-tail-color", backgroundColor);
+    },
+    [backgroundColor],
+  );
+
   return (
     <div className="grid h-full place-content-center">
       <Tilt tiltReverse={true} tiltEnable={true} reset={true} transitionSpeed={10000} perspective={600}>
-        <span className="chat-container font-syne select-none">
+        <span id={chatContainerId} className="chat-container font-syne select-none text-white">
           <HeroChatBubble />
           <GreetingChatBubble />
         </span>
@@ -28,8 +41,6 @@ const HeroChatBubble = () => {
   useEffect(function cycleDotsIndex() {
     const interval = setInterval(() => setDotsIndex((i) => (i + 1) % dots.length), 250);
     return () => clearInterval(interval);
-    // Run once on mount (no deps needed)
-    // eslint-disable-next-line
   }, []);
 
   return (
