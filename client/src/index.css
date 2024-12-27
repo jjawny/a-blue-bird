@@ -19,8 +19,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --behind-chat-bubble-tail-color: #f1f1f1; /* default, override to match background at runtime */
-  --toolbar-height: 50px; /* default, override w actual height at runtime */
+  --toolbar-height: 50px; /* override w actual height at runtime */
 }
 
 #root {
@@ -49,6 +48,7 @@ body {
 /* Inspiration: https://codepen.io/AllThingsSmitty/pen/jommGQ */
 
 .chat-container {
+  --behind-chat-bubble-tail-color: pink; /* override to match background at runtime */
   border-radius: 0.25rem;
   padding: 0.5rem 1.5rem;
   display: flex;
@@ -77,7 +77,6 @@ body {
 .chat-bubble.from-me {
   align-self: flex-end;
   background-color: #0391ca;
-  color: var(--behind-chat-bubble-tail-color);
 }
 
 .chat-bubble.from-me::before {
@@ -100,7 +99,6 @@ body {
 .chat-bubble.from-them {
   align-items: flex-start;
   background-color: black;
-  color: var(--behind-chat-bubble-tail-color);
 }
 
 .chat-bubble.from-them:before {
