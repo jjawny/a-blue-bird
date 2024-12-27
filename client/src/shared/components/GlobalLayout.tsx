@@ -57,6 +57,8 @@ const PageContent = (props: PageContentProps) => {
           }),
           marginLeft: 0,
         }),
+        borderRadius: "20px",
+        background: "pink",
       }}
     >
       <Box sx={{ ...globalHeaderStylesToAdjustSpacing }} />
