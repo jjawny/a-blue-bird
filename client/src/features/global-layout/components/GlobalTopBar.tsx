@@ -13,7 +13,7 @@ import TopBarSearch from "~/features/global-layout/components/TopBarSearch";
 export default function GlobalTopBar(props: { isMenuOpen: boolean; onMenuOpen: () => void; splashImageUrl?: string }) {
   const { isMenuOpen, onMenuOpen, splashImageUrl } = props;
   const theme = useTheme();
-  const headerColor = "white";
+  const headerColor = "#ffffff";
   const appBackgroundColor = theme.palette.background.default;
   const chromeTabLikeTailWidth = 8.8;
 
@@ -33,8 +33,8 @@ export default function GlobalTopBar(props: { isMenuOpen: boolean; onMenuOpen: (
     if (!splashImageUrl) return {};
 
     // Quick-customise
-    const widthPixels: number = 200;
-    const isGrayscale: boolean = false;
+    const widthPixels: number = 111;
+    const isGrayscale: boolean = true;
     const opacity: number = 0.1;
 
     return {
@@ -101,9 +101,9 @@ const GlobalTopBarContent = (props: { isMenuOpen: boolean; onMenuOpen: () => voi
         sx={{ "&:focus": { outline: "none" } }} // remove the focus outline (blue ring)
         size="small"
       >
-        {isMenuOpen ? <MenuOpenIcon className="text-stone-600" /> : <MenuIcon className="text-stone-600" />}
+        {isMenuOpen ? <MenuOpenIcon className="text-black" /> : <MenuIcon className="text-black" />}
       </IconButton>
-      <Divider orientation="vertical" variant="middle" flexItem sx={{ marginX: "10px" }} />
+      <Divider orientation="vertical" variant="middle" flexItem className="bg-stone-300" sx={{ marginX: "10px" }} />
       <div className="flex w-full items-center justify-between gap-2">
         <MemoisedTopBarButtons />
         <TopBarSearch />
