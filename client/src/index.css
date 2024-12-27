@@ -19,7 +19,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --toolbar-height: 50px; /* override w actual height at runtime */
+  --toolbar-height: 50px; /* override w actual height at runtime */ /* TODO: see instead of setting this here just minus in the useEffect or set the new height in the useeffect instead */
 }
 
 #root {
@@ -45,7 +45,6 @@ body {
 /* #endregion ------------------------------------------------------ */
 
 /* #region ---------------------- CHAT STYLES ---------------------- */
-/* Inspiration: https://codepen.io/AllThingsSmitty/pen/jommGQ */
 
 .chat-container {
   --behind-chat-bubble-tail-color: pink; /* override to match background at runtime */
