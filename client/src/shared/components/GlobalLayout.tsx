@@ -1,8 +1,10 @@
+import { Breadcrumbs, Link, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useTheme } from "@mui/material/styles";
 import { ReactNode, useCallback, useState } from "react";
+import { PiBreadFill as BreadIcon } from "react-icons/pi";
 // OWN COMPONENTS
-import GlobalHeader from "~/shared/components/GlobalHeader";
+import GlobalTopBar from "~/features/global-layout/components/GlobalTopBar";
 import GlobalMenu from "~/shared/components/GlobalMenu";
 
 type GlobalLayoutProps = {
@@ -17,10 +19,10 @@ export default function GlobalLayout(props: GlobalLayoutProps) {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <GlobalHeader isMenuOpen={isMenuOpen} onMenuOpen={handleMenuOpen} />
+      <GlobalTopBar isMenuOpen={isMenuOpen} onMenuOpen={handleMenuOpen} splashImageUrl="/whats-happening.jpg" />
       <GlobalMenu isMenuOpen={isMenuOpen} width={menuWidth} />
       <PageContent isMenuOpen={isMenuOpen} menuWidth={menuWidth}>
-        {children}
+        <>{children}</>
       </PageContent>
     </Box>
   );
@@ -58,6 +60,30 @@ const PageContent = (props: PageContentProps) => {
       }}
     >
       <Box sx={{ ...globalHeaderStylesToAdjustSpacing }} />
+      <Box
+        sx={{
+          position: "absolute",
+          top: `calc(${globalHeaderStylesToAdjustSpacing.minHeight}px)`,
+          left: isMenuOpen ? `${menuWidth}px` : 0,
+          transition: theme.transitions.create("left", {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+          }),
+          paddingLeft: theme.spacing(2),
+          zIndex: theme.zIndex.drawer + 1,
+        }}
+      >
+        <Breadcrumbs aria-label="breadcrumb">
+          <BreadIcon />
+          <Link underline="hover" color="#0391ca" href="/">
+            Forms
+          </Link>
+          <Link underline="hover" color="#0391ca" href="/material-ui/getting-started/installation/">
+            Super Form
+          </Link>
+          <Typography color="inherit">Breadcrumbs </Typography>
+        </Breadcrumbs>
+      </Box>
       {children}
     </Box>
   );
