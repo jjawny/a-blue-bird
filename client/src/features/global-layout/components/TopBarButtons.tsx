@@ -13,7 +13,7 @@ export default function TopBarButtons() {
           <Link href={"https://react.dev/"} target="_blank" rel="noopener noreferrer">
             <img src="/images/react-logo.png" className="h-5 w-5 animate-spin" />
           </Link>
-          <Typography className="!font-whisper text-stone-600">x</Typography>
+          <Typography className="!font-graffiti text-stone-600">x</Typography>
           <Link href={"https://dotnet.microsoft.com/"} target="_blank" rel="noopener noreferrer">
             <img src="/images/dotnet-mascot.png" className="h-5 w-5 duration-150 hover:scale-105" />
           </Link>
@@ -25,10 +25,10 @@ export default function TopBarButtons() {
   return (
     <div className="flex items-center gap-3">
       <IconButton
-        onClick={() => navigate({ to: "/" })}
-        aria-label="Go home"
-        sx={{ "&:focus": { outline: "none" } }} // remove the focus outline (blue ring)
         size="small"
+        aria-label="Go home"
+        onClick={() => navigate({ to: "/" })}
+        sx={{ borderRadius: "5px", "&:focus": { outline: "none" } }} // remove the focus outline (blue ring)
       >
         <HomeIcon className="h-full text-black" />
       </IconButton>
