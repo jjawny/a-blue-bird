@@ -8,7 +8,7 @@ export default function TopBarButtons() {
 
   const TechnologyLinks = () => {
     return (
-      <div className="flex items-center gap-2 rounded-md border border-stone-300 px-2 py-1">
+      <div className="flex items-center gap-2 rounded-md border border-stone-200 px-2 py-1">
         <Link href={"https://react.dev/"} target="_blank" rel="noopener noreferrer">
           <img src="./images/react-logo.png" className="h-5 w-5 animate-spin rounded-full" />
         </Link>
@@ -28,7 +28,7 @@ export default function TopBarButtons() {
         sx={{ "&:focus": { outline: "none" } }} // remove the focus outline (blue ring)
         size="small"
       >
-        <HomeIcon className="h-full text-stone-600" />
+        <HomeIcon className="h-full text-black" />
       </IconButton>
       <TechnologyLinks />
     </div>
