@@ -7,7 +7,7 @@ import * as React from "react";
 import { useMemo } from "react";
 import { MdOutlineMenu as MenuIcon, MdMenuOpen as MenuOpenIcon } from "react-icons/md";
 // OWN COMPONENTS
-import TopBarButtons from "~/features/global-layout/components/TopBarButtons";
+import { MemoisedTopBarButtons } from "~/features/global-layout/components/TopBarButtons";
 import TopBarSearch from "~/features/global-layout/components/TopBarSearch";
 
 export default function GlobalTopBar(props: { isMenuOpen: boolean; onMenuOpen: () => void; splashImageUrl?: string }) {
@@ -78,16 +78,6 @@ export default function GlobalTopBar(props: { isMenuOpen: boolean; onMenuOpen: (
           width: `calc(100vw - ${chromeTabLikeTailWidth}px)`, // must match width
           borderBottomRightRadius: "20px",
           backgroundColor: headerColor,
-          transition: theme.transitions.create(["margin", "width"], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-          }),
-          ...(isMenuOpen && {
-            transition: theme.transitions.create(["margin", "width"], {
-              easing: theme.transitions.easing.easeOut,
-              duration: theme.transitions.duration.enteringScreen,
-            }),
-          }),
         }}
       >
         <GlobalTopBarContent isMenuOpen={isMenuOpen} onMenuOpen={onMenuOpen} />
@@ -109,12 +99,13 @@ const GlobalTopBarContent = (props: { isMenuOpen: boolean; onMenuOpen: () => voi
         onClick={onMenuOpen}
         aria-label="Open global portal menu"
         sx={{ "&:focus": { outline: "none" } }} // remove the focus outline (blue ring)
+        size="small"
       >
-        {isMenuOpen ? <MenuOpenIcon className="text-stone-400" /> : <MenuIcon className="text-stone-400" />}
+        {isMenuOpen ? <MenuOpenIcon className="text-stone-600" /> : <MenuIcon className="text-stone-600" />}
       </IconButton>
       <Divider orientation="vertical" variant="middle" flexItem sx={{ marginX: "10px" }} />
       <div className="flex w-full items-center justify-between gap-2">
-        <TopBarButtons />
+        <MemoisedTopBarButtons />
         <TopBarSearch />
         <img src="./placeholder-avatar.webp" className="h-8 w-8 rounded-full shadow-sm shadow-stone-200" />
       </div>
