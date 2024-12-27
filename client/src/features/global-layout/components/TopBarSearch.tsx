@@ -2,6 +2,7 @@ import { Autocomplete, AutocompleteChangeReason, AutocompleteRenderInputParams, 
 import { Link, useNavigate } from "@tanstack/react-router";
 import { ClassValue } from "clsx";
 import { forwardRef, memo, useRef, useState } from "react";
+import { CiSearch as SearchIcon } from "react-icons/ci";
 import { TbHandClick as ClickIcon, TbDirections as RouteIcon } from "react-icons/tb";
 import { routes } from "~/shared/constants/routes";
 import { cn } from "~/shared/helpers/classname-helpers";
@@ -71,7 +72,7 @@ const Suggestion = memo((props: { htmlProps: React.HTMLProps<HTMLLIElement>; opt
 const SearchHint = (props: { className?: ClassValue }) => {
   const { className } = props;
   return (
-    <div className={cn("flex select-none items-center gap-1 text-xs text-stone-500", className)}>
+    <div className={cn("z-50 flex select-text items-center gap-1 text-xs text-stone-500", className)}>
       <div>Search by</div>
       <ClickIcon />
       <div>or</div>
@@ -89,7 +90,8 @@ const SearchInput = forwardRef<HTMLInputElement, { params: AutocompleteRenderInp
 
   return (
     <div className="relative flex items-center">
-      {!isFocused && <SearchHint className="absolute left-2" />}
+      {!isFocused && <SearchHint className="absolute left-8" />}
+      <SearchIcon className="mr-2 text-black" />
       <TextField
         {...params}
         inputRef={ref}
@@ -98,10 +100,13 @@ const SearchInput = forwardRef<HTMLInputElement, { params: AutocompleteRenderInp
         sx={{
           margin: 0,
           width: isFocused ? 256 : 200,
+          marginRight: 10,
           transition: `width ${WIDTH_TRANSITION_MS}ms ease-out`,
           "& .MuiInputBase-root": {
             padding: "0 !important",
             border: "none",
+            background: "#ffffff8f",
+            borderRadius: "4px",
           },
         }}
       />
