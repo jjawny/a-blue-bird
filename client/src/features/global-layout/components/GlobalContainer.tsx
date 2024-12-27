@@ -9,7 +9,6 @@ export default function GlobalContainer(props: { isSideBarOpen: boolean; drawerW
   const theme = useTheme();
   const backgroundColor = theme.palette.globalContainer?.background;
   const toolbarHeight = theme.mixins.toolbar.minHeight;
-  const zIndexToRemainAboveEverythingExceptTooltips = theme.zIndex.tooltip - 1; // avoid container clipping behind top/sidebars when user tries to drag (rubber bands back)
   const adjustToSideBarStyles: SxProps<Theme> = {
     transition: theme.transitions.create("margin", {
       easing: isSideBarOpen ? theme.transitions.easing.easeOut : theme.transitions.easing.sharp,
@@ -33,7 +32,6 @@ export default function GlobalContainer(props: { isSideBarOpen: boolean; drawerW
         display: "flex",
         flexGrow: 1,
         flexDirection: "column",
-        zIndex: zIndexToRemainAboveEverythingExceptTooltips,
         ...adjustToSideBarStyles,
       }}
     >
