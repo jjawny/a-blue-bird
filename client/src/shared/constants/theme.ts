@@ -1,5 +1,18 @@
 import { createTheme } from "@mui/material/styles";
 
+declare module "@mui/material/styles" {
+  interface Palette {
+    globalContainer?: {
+      background: string;
+    };
+  }
+  interface PaletteOptions {
+    globalContainer?: {
+      background: string;
+    };
+  }
+}
+
 /**
  * GOTCHA:
  *  - When applying theme <ThemeProvider>, import from @mui/material and NOT @emotion/react otherwise defaultProps will be ignored
@@ -17,6 +30,9 @@ export const theme = createTheme({
     secondary: {
       main: "#24607F",
       dark: "#1F516F",
+    },
+    globalContainer: {
+      background: "#f1f1f1",
     },
   },
   components: {
