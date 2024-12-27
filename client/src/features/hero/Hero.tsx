@@ -20,7 +20,7 @@ export default function Hero() {
   return (
     <div className="grid h-full place-content-center">
       <Tilt tiltReverse={true} tiltEnable={true} reset={true} transitionSpeed={10000} perspective={600}>
-        <span id={chatContainerId} className="chat-container font-syne select-none text-white">
+        <span id={chatContainerId} className="chat-container select-none font-syne text-white">
           <HeroChatBubble />
           <GreetingChatBubble />
         </span>
