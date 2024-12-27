@@ -8,7 +8,7 @@ export default function GlobalContainer(props: { isSideBarOpen: boolean; drawerW
   const { isSideBarOpen, drawerWidth = 256, children } = props;
   const theme = useTheme();
   const toolbarHeight = theme.mixins.toolbar.minHeight;
-  const adjustForDrawerStyles: SxProps<Theme> = {
+  const adjustToSideBarStyles: SxProps<Theme> = {
     transition: theme.transitions.create("margin", {
       easing: isSideBarOpen ? theme.transitions.easing.easeOut : theme.transitions.easing.sharp,
       duration: isSideBarOpen ? theme.transitions.duration.enteringScreen : theme.transitions.duration.leavingScreen,
@@ -31,7 +31,7 @@ export default function GlobalContainer(props: { isSideBarOpen: boolean; drawerW
         display: "flex",
         flexGrow: 1,
         flexDirection: "column",
-        ...adjustForDrawerStyles,
+        ...adjustToSideBarStyles,
       }}
     >
       <RootBreadcrumbs />
