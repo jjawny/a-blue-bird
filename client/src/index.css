@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Syne:wght@800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&family=Syne:wght@800&family=Whisper&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -12,7 +11,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light; /* dark; */
+  /* color-scheme: light; dark; */
   color: black;
 
   font-synthesis: none;
@@ -34,7 +33,6 @@ body {
   height: 100vh;
   display: flex;
   place-items: center;
-  background-color: #fafafa !important;
 }
 
 .debug {
@@ -76,14 +74,14 @@ body {
 
 .chat-bubble.from-me {
   align-self: flex-end;
-  background-color: #82a4c7;
+  background-color: #0391ca;
   color: var(--behind-chat-bubble-tail-color);
 }
 
 .chat-bubble.from-me::before {
   /* our tail */
   border-bottom-left-radius: 0.8rem 0.7rem;
-  border-right: 1.3rem solid #82a4c7;
+  border-right: 1.3rem solid #0391ca;
   right: -0.35rem;
   transform: translate(0, -0.1rem);
 }

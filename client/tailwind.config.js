@@ -6,6 +6,7 @@ export default {
       fontFamily: {
         graffiti: ["Sedgwick Ave Display", "sans-serif"],
         syne: ["Syne", "sans-serif"],
+        whisper: ["Whisper", "sans-serif"],
       },
     },
   },
