@@ -16,10 +16,13 @@ export default function GlobalContainer(props: { isSideBarOpen: boolean; drawerW
     marginLeft: isSideBarOpen ? 0 : `-${drawerWidth}px`,
   };
 
-  useEffect(() => {
-    const root = document.getElementById("root");
-    if (root) root.style.setProperty("--toolbar-height", `${toolbarHeight}px`);
-  }, [toolbarHeight]);
+  useEffect(
+    function overrideToolbarHeightAdjustment() {
+      const root = document.getElementById("root");
+      if (root) root.style.setProperty("--toolbar-height", `${toolbarHeight}px`);
+    },
+    [toolbarHeight],
+  );
 
   return (
     <Box
