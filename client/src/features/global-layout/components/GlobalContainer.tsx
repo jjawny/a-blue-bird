@@ -7,6 +7,7 @@ import { PiBreadFill as BreadIcon } from "react-icons/pi";
 export default function GlobalContainer(props: { isSideBarOpen: boolean; drawerWidth?: number; children?: ReactNode }) {
   const { isSideBarOpen, drawerWidth = 256, children } = props;
   const theme = useTheme();
+  const backgroundColor = theme.palette.globalContainer?.background;
   const toolbarHeight = theme.mixins.toolbar.minHeight;
   const zIndexToRemainAboveEverythingExceptTooltips = theme.zIndex.tooltip - 1; // avoid container clipping behind top/sidebars when user tries to drag (rubber bands back)
   const adjustToSideBarStyles: SxProps<Theme> = {
@@ -18,7 +19,7 @@ export default function GlobalContainer(props: { isSideBarOpen: boolean; drawerW
   };
 
   useEffect(
-    function overrideToolbarHeightAdjustment() {
+    function overrideToolbarHeightAdjustmentCss() {
       const root = document.getElementById("root");
       if (root) root.style.setProperty("--toolbar-height", `${toolbarHeight}px`);
     },
@@ -38,6 +39,7 @@ export default function GlobalContainer(props: { isSideBarOpen: boolean; drawerW
     >
       <GlobalBreadcrumbs />
       <Box
+        id=""
         sx={{
           flexGrow: 1,
           maxHeight: "100%",
@@ -46,7 +48,7 @@ export default function GlobalContainer(props: { isSideBarOpen: boolean; drawerW
           borderTop: "none",
           borderColor: "rgb(168 162 158)",
           borderRadius: "0px 11px 11px 11px",
-          backgroundColor: "#f1f1f1",
+          backgroundColor: backgroundColor,
           boxShadow: "inset 0 -6px 6px rgba(0, 0, 0, 0.1), inset 0 -2px 5px rgba(0, 0, 0, 0.2)", // Custom inset shadow
         }}
       >
@@ -58,13 +60,16 @@ export default function GlobalContainer(props: { isSideBarOpen: boolean; drawerW
 
 // TODO: memoise? or leave and test for React compiler (see dev tools if fixed)
 const GlobalBreadcrumbs = () => {
+  const theme = useTheme();
+  const backgroundColor = theme.palette.globalContainer?.background;
+
   return (
     <div className="z-10 h-3 w-fit overflow-y-visible rounded-t-lg border-l border-t border-stone-400 bg-[#f1f1f1]">
       <Breadcrumbs
         aria-label="breadcrumbs"
         sx={{
           fontSize: "12px",
-          background: "linear-gradient(to bottom, #f1f1f1 90%, transparent 100%)",
+          background: `linear-gradient(to bottom, ${backgroundColor} 90%, transparent 100%)`,
           paddingX: "10px",
           paddingBottom: "5px",
           borderRadius: "10px",
