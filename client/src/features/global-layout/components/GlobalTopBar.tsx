@@ -6,12 +6,11 @@ import Toolbar from "@mui/material/Toolbar";
 import * as React from "react";
 import { useMemo } from "react";
 import { MdOutlineMenu as MenuIcon, MdMenuOpen as MenuOpenIcon } from "react-icons/md";
-// OWN COMPONENTS
 import { MemoisedTopBarButtons } from "~/features/global-layout/components/TopBarButtons";
 import TopBarSearch from "~/features/global-layout/components/TopBarSearch";
 
-export default function GlobalTopBar(props: { isMenuOpen: boolean; onMenuOpen: () => void; splashImageUrl?: string }) {
-  const { isMenuOpen, onMenuOpen, splashImageUrl } = props;
+export default function GlobalTopBar(props: { isSideBarOpen: boolean; onSideBarOpen: () => void; splashImageUrl?: string }) {
+  const { isSideBarOpen, onSideBarOpen, splashImageUrl } = props;
   const theme = useTheme();
   const headerColor = "#ffffff";
   const appBackgroundColor = theme.palette.background.default;
@@ -71,7 +70,7 @@ export default function GlobalTopBar(props: { isMenuOpen: boolean; onMenuOpen: (
         position="fixed"
         sx={{
           ...splashImageStyle,
-          borderBottom: "solid 1px lightgray",
+          // borderBottom: "solid 1px lightgray",
           borderRight: "solid 1px lightgray",
           zIndex: (theme) => theme.zIndex.drawer + 1, // ensure drawer bar stays above
           left: 0,
@@ -80,7 +79,7 @@ export default function GlobalTopBar(props: { isMenuOpen: boolean; onMenuOpen: (
           backgroundColor: headerColor,
         }}
       >
-        <GlobalTopBarContent isMenuOpen={isMenuOpen} onMenuOpen={onMenuOpen} />
+        <GlobalTopBarContent isSideBarOpen={isSideBarOpen} onSideBarOpen={onSideBarOpen} />
         <div className="absolute" style={{ right: `-${chromeTabLikeTailWidth}px` }}>
           {ChromeTabLikeTail}
         </div>
@@ -89,21 +88,21 @@ export default function GlobalTopBar(props: { isMenuOpen: boolean; onMenuOpen: (
   );
 }
 
-const GlobalTopBarContent = (props: { isMenuOpen: boolean; onMenuOpen: () => void }) => {
-  const { isMenuOpen, onMenuOpen } = props;
+const GlobalTopBarContent = (props: { isSideBarOpen: boolean; onSideBarOpen: () => void }) => {
+  const { isSideBarOpen, onSideBarOpen } = props;
 
   return (
     <Toolbar variant="dense">
       <IconButton
         edge="start"
-        onClick={onMenuOpen}
+        onClick={onSideBarOpen}
         aria-label="Open global portal menu"
         sx={{ "&:focus": { outline: "none" } }} // remove the focus outline (blue ring)
         size="small"
       >
-        {isMenuOpen ? <MenuOpenIcon className="text-black" /> : <MenuIcon className="text-black" />}
+        {isSideBarOpen ? <MenuOpenIcon className="text-black" /> : <MenuIcon className="text-black" />}
       </IconButton>
-      <Divider orientation="vertical" variant="middle" flexItem className="bg-stone-300" sx={{ marginX: "10px" }} />
+      <Divider orientation="vertical" variant="middle" flexItem className="bg-stone-50" sx={{ marginX: "10px" }} />
       <div className="flex w-full items-center justify-between gap-2">
         <MemoisedTopBarButtons />
         <TopBarSearch />
