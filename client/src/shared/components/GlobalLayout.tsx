@@ -74,7 +74,7 @@ const PageContent = (props: PageContentProps) => {
         }}
       >
         <Breadcrumbs aria-label="breadcrumb">
-          <BreadIcon />
+          <BreadIcon opacity={0.3} />
           <Link underline="hover" color="#0391ca" href="/">
             Forms
           </Link>
