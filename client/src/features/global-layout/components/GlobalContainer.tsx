@@ -8,6 +8,7 @@ export default function GlobalContainer(props: { isSideBarOpen: boolean; drawerW
   const { isSideBarOpen, drawerWidth = 256, children } = props;
   const theme = useTheme();
   const toolbarHeight = theme.mixins.toolbar.minHeight;
+  const zIndexToRemainAboveEverythingExceptTooltips = theme.zIndex.tooltip - 1; // avoid container clipping behind top/sidebars when user tries to drag (rubber bands back)
   const adjustToSideBarStyles: SxProps<Theme> = {
     transition: theme.transitions.create("margin", {
       easing: isSideBarOpen ? theme.transitions.easing.easeOut : theme.transitions.easing.sharp,
@@ -31,18 +32,22 @@ export default function GlobalContainer(props: { isSideBarOpen: boolean; drawerW
         display: "flex",
         flexGrow: 1,
         flexDirection: "column",
+        zIndex: zIndexToRemainAboveEverythingExceptTooltips,
         ...adjustToSideBarStyles,
       }}
     >
-      <RootBreadcrumbs />
+      <GlobalBreadcrumbs />
       <Box
         sx={{
-          display: "grid",
-          placeContent: "center",
-          position: "relative",
-          backgroundColor: "#f1f1f1",
-          borderRadius: "0px 10px 10px 10px",
           flexGrow: 1,
+          maxHeight: "100%",
+          overflowY: "scroll",
+          border: "1px solid",
+          borderTop: "none",
+          borderColor: "rgb(168 162 158)",
+          borderRadius: "0px 11px 11px 11px",
+          backgroundColor: "#f1f1f1",
+          boxShadow: "inset 0 -6px 6px rgba(0, 0, 0, 0.1), inset 0 -2px 5px rgba(0, 0, 0, 0.2)", // Custom inset shadow
         }}
       >
         {children}
@@ -52,12 +57,21 @@ export default function GlobalContainer(props: { isSideBarOpen: boolean; drawerW
 }
 
 // TODO: memoise? or leave and test for React compiler (see dev tools if fixed)
-const RootBreadcrumbs = () => {
+const GlobalBreadcrumbs = () => {
   return (
-    <div className="breadcrumb-tail z-10 h-3 w-fit overflow-y-visible rounded-t-lg bg-[#f1f1f1] px-4">
-      <Breadcrumbs aria-label="breadcrumb" sx={{ fontSize: "12px" }}>
+    <div className="z-10 h-3 w-fit overflow-y-visible rounded-t-lg border-l border-t border-stone-400 bg-[#f1f1f1]">
+      <Breadcrumbs
+        aria-label="breadcrumbs"
+        sx={{
+          fontSize: "12px",
+          background: "linear-gradient(to bottom, #f1f1f1 90%, transparent 100%)",
+          paddingX: "10px",
+          paddingBottom: "5px",
+          borderRadius: "10px",
+        }}
+      >
         <BreadIcon opacity={0.3} />
-        <Link underline="hover" color="#0391ca" href="/">
+        <Link underline="hover" color="#0391ca" href="/" zIndex="19">
           Forms
         </Link>
         <Link underline="hover" color="#0391ca" href="/material-ui/getting-started/installation/">
