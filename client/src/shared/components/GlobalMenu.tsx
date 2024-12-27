@@ -28,11 +28,22 @@ export default function GlobalMenu(props: GlobalMenuProps) {
     return (
       <List>
         <Link to={"/"}>
-          <ListItem key={"/"} disablePadding>
+          <ListItem
+            key={"/"}
+            disablePadding
+            sx={{
+              "& .MuiButtonBase-root": {
+                paddingY: "3px",
+              },
+            }}
+          >
             <ListItemButton
               sx={{
                 marginX: "10px",
                 borderRadius: "10px",
+                "& .MuiListItemIcon-root": {
+                  minWidth: "33px",
+                },
               }}
             >
               <ListItemIcon>
@@ -42,6 +53,7 @@ export default function GlobalMenu(props: GlobalMenuProps) {
                 primary="Home"
                 sx={{
                   color: "black",
+
                   "& .MuiTypography-root": {
                     // fontWeight: "bold",
                   },
@@ -51,11 +63,22 @@ export default function GlobalMenu(props: GlobalMenuProps) {
           </ListItem>
         </Link>
         <Link to={"/landings"}>
-          <ListItem key={"/landings"} disablePadding>
+          <ListItem
+            key={"/landings"}
+            disablePadding
+            sx={{
+              "& .MuiButtonBase-root": {
+                paddingY: "3px",
+              },
+            }}
+          >
             <ListItemButton
               sx={{
                 marginX: "10px",
                 borderRadius: "10px",
+                "& .MuiListItemIcon-root": {
+                  minWidth: "33px",
+                },
               }}
             >
               <ListItemIcon>
@@ -74,11 +97,22 @@ export default function GlobalMenu(props: GlobalMenuProps) {
           </ListItem>
         </Link>
         <Link to={"/boring-form"}>
-          <ListItem key={"/boring-form"} disablePadding>
+          <ListItem
+            key={"/boring-form"}
+            disablePadding
+            sx={{
+              "& .MuiButtonBase-root": {
+                paddingY: "3px",
+              },
+            }}
+          >
             <ListItemButton
               sx={{
                 marginX: "10px",
                 borderRadius: "10px",
+                "& .MuiListItemIcon-root": {
+                  minWidth: "33px",
+                },
               }}
             >
               <ListItemIcon>
@@ -97,7 +131,15 @@ export default function GlobalMenu(props: GlobalMenuProps) {
           </ListItem>
         </Link>
         <Link to={"/inputs"}>
-          <ListItem key={"/inputs"} disablePadding>
+          <ListItem
+            key={"/inputs"}
+            disablePadding
+            sx={{
+              "& .MuiButtonBase-root": {
+                paddingY: "3px",
+              },
+            }}
+          >
             <ListItemButton
               sx={{
                 marginX: "10px",
@@ -125,7 +167,15 @@ export default function GlobalMenu(props: GlobalMenuProps) {
           </ListItem>
         </Link>
         <Link to={"/landings"}>
-          <ListItem key={"/landings"} disablePadding>
+          <ListItem
+            key={"/landings"}
+            disablePadding
+            sx={{
+              "& .MuiButtonBase-root": {
+                paddingY: "3px",
+              },
+            }}
+          >
             <ListItemButton
               sx={{
                 marginX: "10px",
@@ -153,7 +203,15 @@ export default function GlobalMenu(props: GlobalMenuProps) {
           </ListItem>
         </Link>
         <Link to={"/landings"}>
-          <ListItem key={"/landings"} disablePadding>
+          <ListItem
+            key={"/landings"}
+            disablePadding
+            sx={{
+              "& .MuiButtonBase-root": {
+                paddingY: "3px",
+              },
+            }}
+          >
             <ListItemButton
               sx={{
                 marginX: "10px",
@@ -181,7 +239,15 @@ export default function GlobalMenu(props: GlobalMenuProps) {
           </ListItem>
         </Link>
         <Link to={"/landings"}>
-          <ListItem key={"/landings"} disablePadding>
+          <ListItem
+            key={"/landings"}
+            disablePadding
+            sx={{
+              "& .MuiButtonBase-root": {
+                paddingY: "3px",
+              },
+            }}
+          >
             <ListItemButton
               sx={{
                 marginX: "10px",
