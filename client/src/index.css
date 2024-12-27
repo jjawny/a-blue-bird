@@ -19,12 +19,16 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --behind-chat-bubble-tail-color: #fafafa;
+  --behind-chat-bubble-tail-color: #f1f1f1; /* default, override to match background at runtime */
+  --toolbar-height: 50px; /* default, override w actual height at runtime */
 }
 
 #root {
   margin: 0 auto;
-  padding: 2rem;
+  padding: 5px;
+  width: 100%;
+  height: calc(100vh - var(--toolbar-height));
+  place-self: end;
 }
 
 body {
