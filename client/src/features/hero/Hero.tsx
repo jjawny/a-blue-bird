@@ -5,12 +5,14 @@ import { cn } from "~/shared/helpers/classname-helpers";
 
 export default function Hero() {
   return (
-    <Tilt tiltReverse={true} tiltEnable={true} reset={true} transitionSpeed={10000} perspective={600}>
-      <span className="chat-container font-syne select-none">
-        <HeroChatBubble />
-        <GreetingChatBubble />
-      </span>
-    </Tilt>
+    <div className="grid h-full place-content-center">
+      <Tilt tiltReverse={true} tiltEnable={true} reset={true} transitionSpeed={10000} perspective={600}>
+        <span className="chat-container font-syne select-none">
+          <HeroChatBubble />
+          <GreetingChatBubble />
+        </span>
+      </Tilt>
+    </div>
   );
 }
 
