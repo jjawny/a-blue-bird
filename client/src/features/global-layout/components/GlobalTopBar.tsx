@@ -110,9 +110,9 @@ const GlobalTopBarContent = (props: { isMenuOpen: boolean; onMenuOpen: () => voi
         aria-label="Open global portal menu"
         sx={{ "&:focus": { outline: "none" } }} // remove the focus outline (blue ring)
       >
-        {isMenuOpen ? <MenuOpenIcon color="" /> : <MenuIcon color="" />}
+        {isMenuOpen ? <MenuOpenIcon className="text-stone-400" /> : <MenuIcon className="text-stone-400" />}
       </IconButton>
-      <Divider orientation="vertical" variant="middle" flexItem sx={{ marginLeft: "15px", marginRight: "20px" }} />
+      <Divider orientation="vertical" variant="middle" flexItem sx={{ marginX: "10px" }} />
       <div className="flex w-full items-center justify-between gap-2">
         <TopBarButtons />
         <TopBarSearch />
