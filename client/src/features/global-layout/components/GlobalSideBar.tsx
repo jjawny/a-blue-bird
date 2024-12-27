@@ -13,13 +13,8 @@ import { LuTextCursorInput as InputIcon, LuHandMetal as MetalHandIcon } from "re
 import { PiEyesFill as EyeIcon, PiAirplaneLanding as LandingIcon } from "react-icons/pi";
 import { VscAzure as AzureIcon } from "react-icons/vsc";
 
-type GlobalMenuProps = {
-  isMenuOpen: boolean;
-  width?: number;
-};
-
-export default function GlobalMenu(props: GlobalMenuProps) {
-  const { isMenuOpen, width = 256 } = props;
+export default function GlobalSideBar(props: { isOpen: boolean; width?: number }) {
+  const { isOpen, width = 256 } = props;
   const theme = useTheme();
   const url = useLocation();
   const globalHeaderStylesToAdjustSpacing = theme.mixins.toolbar;
@@ -281,10 +276,12 @@ export default function GlobalMenu(props: GlobalMenuProps) {
     <Drawer
       variant="persistent"
       anchor="left"
-      open={isMenuOpen}
-      PaperProps={{
-        elevation: 1, // Set the elevation of the Paper
-      }}
+      open={isOpen}
+      PaperProps={
+        {
+          // elevation: 1, // Set the elevation of the Paper
+        }
+      }
       sx={{
         width: width,
         flexShrink: 0,
