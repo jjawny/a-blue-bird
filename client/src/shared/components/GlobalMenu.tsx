@@ -6,9 +6,12 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { useTheme } from "@mui/material/styles";
-import { Link } from "@tanstack/react-router";
-import { RiHome2Fill as HomeIcon } from "react-icons/ri";
-import { TbClipboardText as ClipboardIcon } from "react-icons/tb";
+import { Link, useLocation } from "@tanstack/react-router";
+import { GoHome as HomeIcon } from "react-icons/go";
+import { HiOutlineClipboardDocument as FormIcon } from "react-icons/hi2";
+import { LuTextCursorInput as InputIcon, LuHandMetal as MetalHandIcon } from "react-icons/lu";
+import { PiEyesFill as EyeIcon, PiAirplaneLanding as LandingIcon } from "react-icons/pi";
+import { VscAzure as AzureIcon } from "react-icons/vsc";
 
 type GlobalMenuProps = {
   isMenuOpen: boolean;
@@ -18,6 +21,7 @@ type GlobalMenuProps = {
 export default function GlobalMenu(props: GlobalMenuProps) {
   const { isMenuOpen, width = 256 } = props;
   const theme = useTheme();
+  const url = useLocation();
   const globalHeaderStylesToAdjustSpacing = theme.mixins.toolbar;
 
   const InnerContent = () => {
@@ -34,12 +38,20 @@ export default function GlobalMenu(props: GlobalMenuProps) {
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
-              <ListItemText primary="Home" />
+              <ListItemText
+                primary="Home"
+                sx={{
+                  color: "black",
+                  "& .MuiTypography-root": {
+                    // fontWeight: "bold",
+                  },
+                }}
+              />
             </ListItemButton>
           </ListItem>
         </Link>
-        <Link to={"/about"}>
-          <ListItem key={"/about"} disablePadding>
+        <Link to={"/landings"}>
+          <ListItem key={"/landings"} disablePadding>
             <ListItemButton
               sx={{
                 marginX: "10px",
@@ -47,9 +59,17 @@ export default function GlobalMenu(props: GlobalMenuProps) {
               }}
             >
               <ListItemIcon>
-                <ClipboardIcon />
+                <LandingIcon />
               </ListItemIcon>
-              <ListItemText primary="About" />
+              <ListItemText
+                primary="Landings"
+                sx={{
+                  color: "black",
+                  "& .MuiTypography-root": {
+                    // fontWeight: "bold",
+                  },
+                }}
+              />
             </ListItemButton>
           </ListItem>
         </Link>
@@ -62,9 +82,129 @@ export default function GlobalMenu(props: GlobalMenuProps) {
               }}
             >
               <ListItemIcon>
-                <ClipboardIcon />
+                <FormIcon />
               </ListItemIcon>
-              <ListItemText primary="Boring Form" />
+              <ListItemText
+                primary="Forms"
+                sx={{
+                  color: "black",
+                  "& .MuiTypography-root": {
+                    // fontWeight: "bold",
+                  },
+                }}
+              />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link to={"/inputs"}>
+          <ListItem key={"/inputs"} disablePadding>
+            <ListItemButton
+              sx={{
+                marginX: "10px",
+                borderRadius: "10px",
+                backgroundColor: location.pathname.startsWith("/about") ? "lightgray" : "", // Apply lightgray for the default state
+                "&:hover": {
+                  backgroundColor: location.pathname.startsWith("/about") ? "lightgray" : "", // Keep the same background color on hover
+                  color: "inherit", // Prevent color change on hover
+                },
+              }}
+            >
+              <ListItemIcon>
+                <InputIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary="Inputs"
+                sx={{
+                  color: "black",
+                  "& .MuiTypography-root": {
+                    // fontWeight: "bold",
+                  },
+                }}
+              />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link to={"/landings"}>
+          <ListItem key={"/landings"} disablePadding>
+            <ListItemButton
+              sx={{
+                marginX: "10px",
+                borderRadius: "10px",
+                backgroundColor: location.pathname.startsWith("/about") ? "lightgray" : "", // Apply lightgray for the default state
+                "&:hover": {
+                  backgroundColor: location.pathname.startsWith("/about") ? "lightgray" : "", // Keep the same background color on hover
+                  color: "inherit", // Prevent color change on hover
+                },
+              }}
+            >
+              <ListItemIcon>
+                <EyeIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary="Visuals"
+                sx={{
+                  color: "black",
+                  "& .MuiTypography-root": {
+                    // fontWeight: "bold",
+                  },
+                }}
+              />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link to={"/landings"}>
+          <ListItem key={"/landings"} disablePadding>
+            <ListItemButton
+              sx={{
+                marginX: "10px",
+                borderRadius: "10px",
+                backgroundColor: location.pathname.startsWith("/about") ? "lightgray" : "", // Apply lightgray for the default state
+                "&:hover": {
+                  backgroundColor: location.pathname.startsWith("/about") ? "lightgray" : "", // Keep the same background color on hover
+                  color: "inherit", // Prevent color change on hover
+                },
+              }}
+            >
+              <ListItemIcon>
+                <AzureIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary="Azure"
+                sx={{
+                  color: "black",
+                  "& .MuiTypography-root": {
+                    // fontWeight: "bold",
+                  },
+                }}
+              />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link to={"/landings"}>
+          <ListItem key={"/landings"} disablePadding>
+            <ListItemButton
+              sx={{
+                marginX: "10px",
+                borderRadius: "10px",
+                backgroundColor: location.pathname.startsWith("/about") ? "lightgray" : "", // Apply lightgray for the default state
+                "&:hover": {
+                  backgroundColor: location.pathname.startsWith("/about") ? "lightgray" : "", // Keep the same background color on hover
+                  color: "inherit", // Prevent color change on hover
+                },
+              }}
+            >
+              <ListItemIcon>
+                <MetalHandIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary="About"
+                sx={{
+                  color: "black",
+                  "& .MuiTypography-root": {
+                    // fontWeight: "bold",
+                  },
+                }}
+              />
             </ListItemButton>
           </ListItem>
         </Link>
