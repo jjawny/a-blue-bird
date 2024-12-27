@@ -3,7 +3,9 @@ import { useEffect } from "react";
 export function useFocusOnKeyPress(ref: React.RefObject<HTMLElement>, focusKey?: string, unFocusKey?: string) {
   useEffect(() => {
     const handleKeydown = (event: KeyboardEvent) => {
-      if (focusKey && event.key === focusKey) {
+      // GOTCHA: Do not pre-compute isFocused as out-of-date, use within ifs instead
+      // const isFocused = ref.current === document.activeElement;
+      if (focusKey && event.key === focusKey && ref.current !== document.activeElement) {
         event.preventDefault();
         ref.current?.focus();
       }
