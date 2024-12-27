@@ -64,7 +64,7 @@ const GlobalBreadcrumbs = () => {
   const backgroundColor = theme.palette.globalContainer?.background;
 
   return (
-    <div className="z-10 h-3 w-fit overflow-y-visible rounded-t-lg border-l border-t border-stone-400 bg-[#f1f1f1]">
+    <div className="z-10 h-3 w-fit overflow-y-visible text-nowrap rounded-t-lg border-l border-t border-stone-400 bg-[#f1f1f1]">
       <Breadcrumbs
         aria-label="breadcrumbs"
         sx={{
