@@ -54,7 +54,7 @@ export default function GlobalContainer(props: { isSideBarOpen: boolean; drawerW
 // TODO: memoise? or leave and test for React compiler (see dev tools if fixed)
 const RootBreadcrumbs = () => {
   return (
-    <div className="z-10 h-3 w-fit overflow-y-visible rounded-t-lg bg-[#f1f1f1] px-4">
+    <div className="breadcrumb-tail z-10 h-3 w-fit overflow-y-visible rounded-t-lg bg-[#f1f1f1] px-4">
       <Breadcrumbs aria-label="breadcrumb" sx={{ fontSize: "12px" }}>
         <BreadIcon opacity={0.3} />
         <Link underline="hover" color="#0391ca" href="/">
