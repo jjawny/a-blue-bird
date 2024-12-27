@@ -31,15 +31,16 @@ const HeroChatBubble = () => {
   }, []);
 
   return (
-    // TODO: Chat bubble component w header (name) timestamps, icons, buttons, status styles etc
     <div>
-      <div className="text-nowrap pl-4 text-start text-xs font-bold text-gray-300">Johnny is typing {dots[dotsIndex]}</div>
+      <div className="text-nowrap pl-4 text-start text-[1.5vw] font-bold text-gray-300 sm:text-xs">
+        Johnny is typing {dots[dotsIndex]}
+      </div>
       <div
         className={cn(
           "chat-bubble from-them",
           "bg-stone-900 shadow-lg shadow-pink-300",
           "text-start font-extrabold tracking-tight",
-          "h-[20vw] min-w-[35vw] text-[7vw]",
+          "h-[20vw] min-h-fit min-w-[35vw] text-[7vw]",
         )}
       >
         <Typewriter options={typewriterOptions} />
@@ -66,7 +67,7 @@ const GreetingChatBubble = () => {
   const randomGreeting = useCallback(() => {
     const index = Math.floor(Math.random() * greetings.length);
     setGreeting(greetings[index] ?? "hi");
-  }, []);
+  }, [greetings]);
 
   useEffect(
     function waitForNextGreeting() {
@@ -78,15 +79,18 @@ const GreetingChatBubble = () => {
   );
 
   return (
-    <div
-      className={cn(
-        "chat-bubble from-me",
-        "shadow-lg shadow-cyan-100",
-        "flex justify-end whitespace-nowrap",
-        "min-w-[13vw] text-[1vw]",
-      )}
-    >
-      {greeting} 👋🏻
+    <div className="flex items-end justify-end gap-2">
+      <div
+        className={cn(
+          "chat-bubble from-me",
+          "shadow-lg shadow-cyan-100",
+          "mb-[1vw] flex justify-end whitespace-nowrap",
+          "min-h-fit min-w-[13vw] text-[1vw]",
+        )}
+      >
+        {greeting} 👋🏻
+      </div>
+      <img src="/images/bird.png" className="h-[2vw] scale-x-[-1] transform" />
     </div>
   );
 };
