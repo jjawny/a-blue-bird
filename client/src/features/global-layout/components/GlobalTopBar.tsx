@@ -3,7 +3,7 @@ import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import { useTheme } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
-import { TbLayoutSidebarLeftCollapse as SidebarCloseIcon, TbLayoutSidebar as SidebarIcon } from "react-icons/tb";
+import { TbLayoutSidebarLeftCollapseFilled as SidebarCloseIcon, TbLayoutSidebar as SidebarIcon } from "react-icons/tb";
 import { MemoisedTopBarButtons } from "~/features/global-layout/components/TopBarButtons";
 import TopBarSearch from "~/features/global-layout/components/TopBarSearch";
 
