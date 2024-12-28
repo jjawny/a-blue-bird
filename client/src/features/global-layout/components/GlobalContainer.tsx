@@ -45,11 +45,10 @@ export default function GlobalContainer(props: { isSideBarOpen: boolean; drawerW
           maxHeight: "100%",
           overflowY: "scroll",
           border: "1px solid",
-          borderTop: "none",
           borderColor: "rgb(168 162 158)",
           borderRadius: "0px 11px 11px 11px",
           backgroundColor: backgroundColor,
-          boxShadow: "inset 0 -6px 6px rgba(0, 0, 0, 0.1), inset 0 -2px 5px rgba(0, 0, 0, 0.2)", // Custom inset shadow
+          boxShadow: "inset 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 -2px 4px rgba(0, 0, 0, 0.2)",
         }}
       >
         {children}
@@ -64,7 +63,7 @@ const GlobalBreadcrumbs = () => {
   const backgroundColor = theme.palette.globalContainer?.background;
 
   return (
-    <div className="breadcrumb-tail z-10 h-3 w-fit overflow-y-visible text-nowrap rounded-t-lg border-l border-t border-stone-400 bg-[#f1f1f1]">
+    <div className="z-10 h-3 w-fit overflow-y-visible text-nowrap rounded-t-lg border-x border-t border-stone-400 bg-[#f1f1f1]">
       <Breadcrumbs
         aria-label="breadcrumbs"
         sx={{
@@ -76,6 +75,18 @@ const GlobalBreadcrumbs = () => {
         }}
       >
         <BreadIcon opacity={0.3} />
+        <Link underline="hover" color="#0391ca" href="/" zIndex="19">
+          Forms
+        </Link>
+        <Link underline="hover" color="#0391ca" href="/" zIndex="19">
+          Forms
+        </Link>
+        <Link underline="hover" color="#0391ca" href="/" zIndex="19">
+          Forms
+        </Link>
+        <Link underline="hover" color="#0391ca" href="/" zIndex="19">
+          Forms
+        </Link>
         <Link underline="hover" color="#0391ca" href="/" zIndex="19">
           Forms
         </Link>
