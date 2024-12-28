@@ -44,6 +44,33 @@ body {
 
 /* #endregion ------------------------------------------------------ */
 
+/* #region ------------------- BREADCRUMB TAIL -------------------- */
+
+.breadcrumb-tail {
+  --breadcrumb-tail-width: 7px;
+  position: relative; /* for absolute tail */
+}
+
+.breadcrumb-tail::before,
+.breadcrumb-tail::after {
+  content: "";
+  position: absolute;
+  right: calc(-1 * var(--breadcrumb-tail-width));
+  height: 50%;
+  top: 50%;
+}
+
+.breadcrumb-tail::before {
+  border-right: var(--breadcrumb-tail-width) solid #f1f1f1;
+}
+
+.breadcrumb-tail::after {
+  border-right: var(--breadcrumb-tail-width) solid white;
+  border-bottom-left-radius: 0.8rem 0.7rem;
+}
+
+/* #endregion ------------------------------------------------------ */
+
 /* #region ---------------------- CHAT STYLES ---------------------- */
 
 .chat-container {
