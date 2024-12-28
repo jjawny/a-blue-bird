@@ -72,7 +72,7 @@ const Suggestion = memo((props: { htmlProps: React.HTMLProps<HTMLLIElement>; opt
 const SearchHint = (props: { className?: ClassValue }) => {
   const { className } = props;
   return (
-    <div className={cn("z-50 flex select-text items-center gap-1 text-xs text-stone-500", className)}>
+    <div className={cn("z-50 flex cursor-text select-none items-center gap-1 text-xs text-stone-500", className)}>
       <div>Search by</div>
       <ClickIcon />
       <div>or</div>
