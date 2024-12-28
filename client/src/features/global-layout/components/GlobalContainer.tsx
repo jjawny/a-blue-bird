@@ -37,11 +37,10 @@ export default function GlobalContainer(props: { isSideBarOpen: boolean; drawerW
     >
       <GlobalBreadcrumbs />
       <Box
-        id=""
         sx={{
           flexGrow: 1,
           paddingX: "5px",
-          paddingTop: "15px", // start content beneath breadcrumbs
+          paddingTop: "20px", // start content beneath breadcrumbs
           paddingBottom: "5px",
           maxHeight: "100%",
           overflowY: "scroll",
