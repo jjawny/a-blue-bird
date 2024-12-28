@@ -3,7 +3,7 @@ import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import { useTheme } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
-import { MdOutlineMenu as MenuIcon, MdMenuOpen as MenuOpenIcon } from "react-icons/md";
+import { TbLayoutSidebarLeftCollapse as SidebarCloseIcon, TbLayoutSidebar as SidebarIcon } from "react-icons/tb";
 import { MemoisedTopBarButtons } from "~/features/global-layout/components/TopBarButtons";
 import TopBarSearch from "~/features/global-layout/components/TopBarSearch";
 
@@ -74,7 +74,7 @@ const GlobalTopBarContent = (props: { isSideBarOpen: boolean; onSideBarOpen: () 
         aria-label="Open global portal menu"
         sx={{ borderRadius: "5px", "&:focus": { outline: "none" } }} // remove the focus outline (blue ring)
       >
-        {isSideBarOpen ? <MenuOpenIcon className="text-black" /> : <MenuIcon className="text-black" />}
+        {isSideBarOpen ? <SidebarCloseIcon className="text-black" /> : <SidebarIcon className="text-black" />}
       </IconButton>
       <Divider orientation="vertical" variant="middle" flexItem className="bg-stone-50" sx={{ marginX: "10px" }} />
       <div className="flex w-full items-center justify-between gap-2">
