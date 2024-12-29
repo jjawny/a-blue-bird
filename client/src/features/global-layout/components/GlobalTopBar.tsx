@@ -1,4 +1,4 @@
-import { Divider } from "@mui/material";
+import { Divider, Tooltip } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import { useTheme } from "@mui/material/styles";
@@ -77,10 +77,18 @@ const GlobalTopBarContent = (props: { isSideBarOpen: boolean; onSideBarOpen: () 
         {isSideBarOpen ? <SidebarCloseIcon className="text-black" /> : <SidebarIcon className="text-black" />}
       </IconButton>
       <Divider orientation="vertical" variant="middle" flexItem className="bg-stone-50" sx={{ marginX: "10px" }} />
-      <div className="flex w-full items-center justify-between gap-2">
+      <div className="flex max-h-9 w-full items-center justify-between gap-2">
         <MemoisedTopBarButtons />
-        <TopBarSearch />
-        <img src="./placeholder-avatar.webp" className="h-8 w-8 rounded-full shadow-sm shadow-stone-200" />
+        <TopBarSearch className="flex-grow justify-items-center" />
+        <div className="flex items-center gap-2 text-nowrap rounded-md border border-stone-200 px-2 py-1">
+          <div className="flex flex-col items-end">
+            <p className="text-[8px] text-stone-500">Signed in as</p>
+            <p className="text-[10px] font-bold text-stone-900">Johnny</p>
+          </div>
+          <Tooltip title={"email@email.email"}>
+            <img src="/placeholder-avatar.webp" className="h-6 w-6 cursor-pointer rounded-full shadow-sm shadow-stone-200" />
+          </Tooltip>
+        </div>
       </div>
     </Toolbar>
   );
