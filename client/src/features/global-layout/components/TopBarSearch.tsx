@@ -2,13 +2,13 @@ import { Autocomplete, AutocompleteChangeReason, AutocompleteRenderInputParams, 
 import { Link, useNavigate } from "@tanstack/react-router";
 import { ClassValue } from "clsx";
 import { forwardRef, memo, useRef, useState } from "react";
-import { CiSearch as SearchIcon } from "react-icons/ci";
+import { FiSearch as SearchIcon } from "react-icons/fi";
 import { TbHandClick as ClickIcon, TbDirections as RouteIcon } from "react-icons/tb";
 import { routes } from "~/shared/constants/routes";
 import { cn } from "~/shared/helpers/classname-helpers";
 import { useFocusOnKeyPress } from "~/shared/hooks/useFocusOnKeyPress";
 
-const WIDTH_TRANSITION_MS = 100;
+const WIDTH_TRANSITION_MS = 80;
 
 export default function TopBarSearch() {
   const [searchValue, setSearchValue] = useState("");
@@ -72,7 +72,12 @@ const Suggestion = memo((props: { htmlProps: React.HTMLProps<HTMLLIElement>; opt
 const SearchHint = (props: { className?: ClassValue }) => {
   const { className } = props;
   return (
-    <div className={cn("z-50 flex cursor-text select-none items-center gap-1 text-xs text-stone-500", className)}>
+    <div
+      className={cn(
+        "pointer-events-none z-50 flex cursor-text select-none items-center gap-1 text-xs text-stone-500",
+        className,
+      )}
+    >
       <div>Search by</div>
       <ClickIcon />
       <div>or</div>
@@ -91,7 +96,7 @@ const SearchInput = forwardRef<HTMLInputElement, { params: AutocompleteRenderInp
   return (
     <div className="relative flex items-center">
       {!isFocused && <SearchHint className="absolute left-8" />}
-      <SearchIcon className="mr-2 text-black" />
+      <SearchIcon className="mr-2 cursor-pointer text-black" />
       <TextField
         {...params}
         inputRef={ref}
@@ -99,8 +104,7 @@ const SearchInput = forwardRef<HTMLInputElement, { params: AutocompleteRenderInp
         slotProps={{ inputLabel: { shrink: true } }}
         sx={{
           margin: 0,
-          width: isFocused ? 256 : 200,
-          marginRight: 10,
+          width: isFocused ? 256 : 125,
           transition: `width ${WIDTH_TRANSITION_MS}ms ease-out`,
           "& .MuiInputBase-root": {
             padding: "0 !important",
