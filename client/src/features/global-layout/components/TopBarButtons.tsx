@@ -11,17 +11,24 @@ export default function TopBarButtons(props: { className?: ClassValue }) {
 
   const TechnologyLinks = () => {
     return (
-      <Tooltip title="Made with React & .NET">
-        <div className="flex items-center gap-2 rounded-md border border-stone-200 px-2 py-1">
+      <div className="flex flex-col rounded-md border border-stone-200 px-2 py-1">
+        <p className="text-[8px] text-stone-500">Made with</p>
+        <div className="flex items-center gap-2">
           <Link href={"https://react.dev/"} target="_blank" rel="noopener noreferrer">
-            <img src="/images/react-logo.png" className="h-5 w-5 animate-spin" />
+            <Tooltip title="React">
+              <img src="/images/react-logo.png" className="h-4 w-4 animate-spin" />
+            </Tooltip>
           </Link>
-          <Typography className="!font-graffiti text-stone-600">x</Typography>
+          <Typography className="!font-graffiti text-stone-900" sx={{ fontSize: "10px" }}>
+            x
+          </Typography>
           <Link href={"https://dotnet.microsoft.com/"} target="_blank" rel="noopener noreferrer">
-            <img src="/images/dotnet-mascot.png" className="h-5 w-5 duration-150 hover:scale-105" />
+            <Tooltip title=".NET">
+              <img src="/images/dotnet-mascot.png" className="h-4 w-4 duration-150 hover:scale-105" />
+            </Tooltip>
           </Link>
         </div>
-      </Tooltip>
+      </div>
     );
   };
 
