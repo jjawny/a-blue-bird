@@ -1,9 +1,12 @@
 import { IconButton, Link, Tooltip, Typography } from "@mui/material";
 import { useNavigate } from "@tanstack/react-router";
+import { ClassValue } from "clsx";
 import { memo } from "react";
 import { GoHome as HomeIcon } from "react-icons/go";
+import { cn } from "~/shared/helpers/classname-helpers";
 
-export default function TopBarButtons() {
+export default function TopBarButtons(props: { className?: ClassValue }) {
+  const { className } = props;
   const navigate = useNavigate();
 
   const TechnologyLinks = () => {
@@ -23,7 +26,7 @@ export default function TopBarButtons() {
   };
 
   return (
-    <div className="flex items-center gap-3">
+    <div className={cn(className, "flex items-center gap-3")}>
       <IconButton
         size="small"
         aria-label="Go home"

@@ -11,7 +11,8 @@ import { useMediaQuery } from "~/shared/hooks/useMediaQuery";
 
 const WIDTH_TRANSITION_MS = 80;
 
-export default function TopBarSearch() {
+export default function TopBarSearch(props: { className?: ClassValue }) {
+  const { className } = props;
   const [searchValue, setSearchValue] = useState("");
   const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -37,23 +38,25 @@ export default function TopBarSearch() {
   };
 
   return (
-    <Autocomplete
-      size="small"
-      blurOnSelect
-      disablePortal
-      popupIcon={null}
-      clearIcon={null}
-      options={routes}
-      value={searchValue}
-      open={isSuggestionsOpen}
-      onOpen={handleOpen}
-      onClose={handleClose}
-      onChange={handleChange}
-      renderInput={(params) => <SearchInput params={params} ref={inputRef} />}
-      renderOption={(htmlProps, option) => (
-        <Suggestion key={htmlProps.key} htmlProps={htmlProps} option={option} onClick={handleSuggestionClick} />
-      )}
-    />
+    <div className={cn(className)}>
+      <Autocomplete
+        size="small"
+        blurOnSelect
+        disablePortal
+        popupIcon={null}
+        clearIcon={null}
+        options={routes}
+        value={searchValue}
+        open={isSuggestionsOpen}
+        onOpen={handleOpen}
+        onClose={handleClose}
+        onChange={handleChange}
+        renderInput={(params) => <SearchInput params={params} ref={inputRef} />}
+        renderOption={(htmlProps, option) => (
+          <Suggestion key={htmlProps.key} htmlProps={htmlProps} option={option} onClick={handleSuggestionClick} />
+        )}
+      />
+    </div>
   );
 }
 
