@@ -7,6 +7,7 @@ import { TbHandClick as ClickIcon, TbDirections as RouteIcon } from "react-icons
 import { routes } from "~/shared/constants/routes";
 import { cn } from "~/shared/helpers/classname-helpers";
 import { useFocusOnKeyPress } from "~/shared/hooks/useFocusOnKeyPress";
+import { useMediaQuery } from "~/shared/hooks/useMediaQuery";
 
 const WIDTH_TRANSITION_MS = 80;
 
@@ -69,8 +70,9 @@ const Suggestion = memo((props: { htmlProps: React.HTMLProps<HTMLLIElement>; opt
   );
 });
 
-const SearchHint = (props: { className?: ClassValue }) => {
-  const { className } = props;
+const SearchHint = (props: { className?: ClassValue; isConcise?: boolean }) => {
+  const { className, isConcise } = props;
+
   return (
     <div
       className={cn(
@@ -78,12 +80,17 @@ const SearchHint = (props: { className?: ClassValue }) => {
         className,
       )}
     >
-      <div>Search by</div>
-      <ClickIcon />
-      <div>or</div>
-      <div className="rounded-md border border-stone-400 px-1 py-0.5 text-xs leading-3">
-        <kbd>/</kbd>
-      </div>
+      {isConcise && <div>Search</div>}
+      {!isConcise && (
+        <>
+          <div>Search by</div>
+          <ClickIcon />
+          <div>or</div>
+          <div className="rounded-md border border-stone-400 px-1 py-0.5 text-xs leading-3">
+            <kbd>/</kbd>
+          </div>
+        </>
+      )}
     </div>
   );
 };
@@ -92,10 +99,12 @@ const SearchInput = forwardRef<HTMLInputElement, { params: AutocompleteRenderInp
   const { params } = props;
   const inputRef = ref as React.MutableRefObject<HTMLInputElement | null>;
   const isFocused = document.activeElement === inputRef.current;
+  const isSmallScreen = useMediaQuery({ maxWidth: 500 });
 
+  // TODO: Pop-out if small screen
   return (
     <div className="relative flex items-center">
-      {!isFocused && <SearchHint className="absolute left-8" />}
+      {!isFocused && <SearchHint className="absolute left-8" isConcise={isSmallScreen} />}
       <SearchIcon className="mr-2 cursor-pointer text-black" />
       <TextField
         {...params}
@@ -104,7 +113,7 @@ const SearchInput = forwardRef<HTMLInputElement, { params: AutocompleteRenderInp
         slotProps={{ inputLabel: { shrink: true } }}
         sx={{
           margin: 0,
-          width: isFocused ? 256 : 125,
+          width: isSmallScreen ? 55 : isFocused ? 256 : 125,
           transition: `width ${WIDTH_TRANSITION_MS}ms ease-out`,
           "& .MuiInputBase-root": {
             padding: "0 !important",
